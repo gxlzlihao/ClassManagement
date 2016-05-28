@@ -1,0 +1,313 @@
+
+    <% content_for :stylesheets do %>
+        <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
+        <%= stylesheet_link_tag 'common/navbar' %>
+    <% end %>
+
+    <% content_for :javascripts do %>
+        <%= javascript_include_tag 'common/ie-emulation-modes-warning' %>
+        <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
+        <%= javascript_include_tag 'common/jquery/jquery' %>
+        <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+    <% end %>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">教师管理系统</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/index">学生</a></li>
+              <li><a href="/index/homework">作业</a></li>
+              <li><a href="/index/document">资料</a></li>
+              <li><a href="/index/everyday_grade">平时成绩</a></li>
+              <li class="active"><a href="/index/attendance">考勤</a></li>
+              
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统分析与设计 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li class="dropdown-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+              <button type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
+            </ul>
+      
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="">
+      <style>
+        .nav-tabs.nav-tabs-left {
+    border-bottom-color: transparent;
+    padding: 10px;
+}
+</style>
+        <ul class="nav nav-pills nav-stacked nav-tabs-left col-xs-12 col-md-2">
+          <li><a data-toggle="modal" data-target="#insertClass">创建班级</a></li>
+          <li><a data-toggle="modal" data-target="#insertStudent">创建学生</a></li>
+          <li><a href="#">信管1班</a></li>
+          <li><a href="#">信管2班</a></li>
+          <li><a href="#">信管3班</a></li>
+          <li><a href="#">信管4班</a></li>
+          <li><a href="#">信管5班</a></li>
+          <li><a href="#">信管6班</a></li>
+        </ul>
+      </div>
+      <div class="col-xs-12 col-md-10">
+        
+        <table class="table table-striped table-bordered">
+           <thead>
+             <tr>
+               <th>
+                <div class="row col-md-12">
+                  <div class="col-md-6">
+                    <span>考勤记录</span>
+                  </div>
+                </div>
+              </th>
+               
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <a href="/attendance/details"><span>考勤课程：</span><span>信号与系统</span></a>
+                    </div>
+                    <div class="col-md-6">
+                      <span>考勤时间：</span><span>1月22日</span>
+                    </div>
+                  </div>
+                  <div class="row col-md-12">
+                      <div class="col-md-6">
+                        <span>考勤情况：应到 </span><span class="should_arrive">100</span><span> 实到 </span><span class="real_arrive">98</span><span> 缺勤 </span><span>2</span>
+                      </div>
+                  </div>
+                </td>
+             </tr>
+             <tr>
+               <td>
+                  <div class="row col-md-12">
+                    <div class="col-md-6">
+                      <a href="/attendance/details"><span>考勤课程：</span><span>信号与系统</span></a>
+                    </div>
+                    <div class="col-md-6">
+                      <span>考勤时间：</span><span>1月22日</span>
+                    </div>
+                  </div>
+                  <div class="row col-md-12">
+                      <div class="col-md-6">
+                        <span>考勤情况：应到 </span><span class="should_arrive">100</span><span> 实到 </span><span class="real_arrive">98</span><span> 缺勤 </span><span>2</span>
+                      </div>
+                  </div>
+               </td>
+             </tr>
+             
+           </tbody>
+         </table>
+
+         <div class="col-md-2 col-md-offset-10">
+          <button type="button" class="btn btn-primary col-md-12" style="margin:5px" data-toggle="modal" data-target="#createNewAttendanceCheck">创建新考勤</button>
+        </div>
+
+      </div>
+
+<div class="modal fade" id="createNewAttendanceCheck" tabindex="-1" role="dialog" aria-labelledby="createNewAttendanceCheckLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content col-md-12">
+           <div class="modal-header">
+              <button type="button" class="close" 
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="createNewAttendanceCheckLabel">
+                 创建新考勤
+              </h4>
+           </div>
+           <div class="modal-body row col-md-12">
+              <div class="row col-md-12">
+                <h4 class="col-md-6">考勤课程：</h4><h4 class="col-md-6" id="attendanceCheckTargetClass">信号与系统</h4>
+              </div>
+              <div class="row col-md-12">
+                <h4 class="col-md-6">考勤时间：</h4><h4 class="col-md-6" id="attendanceCheckTargetTime">1月22日</h4>
+              </div>
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" 
+                 data-dismiss="modal">取消
+              </button>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#newAttendance">创建新考勤</button>
+           </div>
+         </div>
+       </div>
+</div>
+
+
+<div class="modal fade" id="newAttendance" tabindex="-1" role="dialog" aria-labelledby="newAttendanceLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content col-md-12">
+           <div class="modal-header">
+              <button type="button" class="close" 
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="newAttendanceLabel">
+                 创建新考勤
+              </h4>
+           </div>
+           <div class="modal-body row col-md-12">
+              <h1 class="text-center" id="attendanceCheckNumber">8829</h1>
+           </div>
+           <div class="modal-footer">
+              <a href="/attendance/details"><button type="button" class="btn btn-primary">考勤结束</button></a>
+           </div>
+         </div>
+       </div>
+</div>
+
+
+<div class="modal fade" id="insertStudent" tabindex="-1" role="dialog" aria-labelledby="insertStudentLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <button type="button" class="close" 
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="insertStudentLabel">
+                 创建学生
+              </h4>
+           </div>
+           <div class="modal-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-2 control-label">学号</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputPassword3" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">班级: </label>
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管1班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管2班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管3班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管4班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管5班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管6班
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" 
+                 data-dismiss="modal">关闭
+              </button>
+              <button type="button" class="btn btn-primary">
+                 提交更改
+              </button>
+           </div>
+        </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+
+</div>
+
+<div class="modal fade" id="insertClass" tabindex="-1" role="dialog" aria-labelledby="insertClassLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <button type="button" class="close" 
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="insertClassLabel">
+                 创建课程
+              </h4>
+           </div>
+           <div class="modal-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">课程名字: </label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputEmail3" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">上课学生: </label>
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管1班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管2班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管3班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管4班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管5班
+                      </label>
+                      <label class=" col-sm-4">
+                        <input type="checkbox">信管6班
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" 
+                 data-dismiss="modal">关闭
+              </button>
+              <button type="button" class="btn btn-primary">
+                 提交更改
+              </button>
+           </div>
+        </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
+
+</div>
+
+    </div> <!-- /container -->

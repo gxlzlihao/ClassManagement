@@ -1,0 +1,2 @@
+class HomeworkdetailsController < ApplicationController
+end
