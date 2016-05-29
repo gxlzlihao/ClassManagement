@@ -11,6 +11,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160529020248) do
+
+  create_table "attendance_records", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "class_units", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "homework_records", force: :cascade do |t|
+    t.integer  "grade",      limit: 4
+    t.boolean  "status"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "homeworks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "students", force: :cascade do |t|
+    t.string   "name",           limit: 255
+    t.integer  "everyday_grade", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
 end

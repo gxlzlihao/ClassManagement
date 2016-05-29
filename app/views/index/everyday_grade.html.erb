@@ -60,7 +60,7 @@
 }
 </style>
         <ul class="nav nav-pills nav-stacked nav-tabs-left col-xs-12 col-md-2">
-          <li><a data-toggle="modal" data-target="#insertClass">创建班级</a></li>
+          <li><a data-toggle="modal" data-target="#insertClass">创建课程</a></li>
           <li><a data-toggle="modal" data-target="#insertStudent">创建学生</a></li>
           <li><a href="#">信管1班</a></li>
           <li><a href="#">信管2班</a></li>
@@ -72,7 +72,87 @@
       </div>
       <div class="col-xs-12 col-md-10">
 
-          <!-- TODO: the missing content -->
+          <table class="table table-striped table-bordered">
+           <thead>
+             <tr>
+               <th rowspan="2">姓名</th>
+               <th rowspan="2">学号</th>
+               <th rowspan="2">课堂表现</th>
+               <th>考勤</th>
+               <th rowspan="2">平时成绩</th>
+             </tr>
+             <tr>
+                <th>
+                  <div class="col-md-12">
+                    <div class="col-md-3">出勤</div>
+                    <div class="col-md-3">缺勤</div>
+                    <div class="col-md-3">迟到</div>
+                    <div class="col-md-3">请假</div>
+                  </div>
+                </th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td></td>
+               <td></td>
+               <td>
+                  <div class="col-md-12">
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                  </div>
+               </td>
+               <td>
+                  <div class="col-md-12">
+                    <div class="col-md-3 real_attendance">3</div>
+                    <div class="col-md-3 absense">3</div>
+                    <div class="col-md-3 real_late">3</div>
+                    <div class="col-md-3 approved_leave">3</div>
+                  </div>
+               </td>
+               <td></td>
+             </tr>
+             <tr>
+               <td></td>
+               <td></td>
+               <td>
+                  <div class="col-md-12">
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                    <div class="col-md-1">1</div>
+                  </div>
+               </td>
+               <td>
+                  <div class="col-md-12">
+                    <div class="col-md-3 real_attendance">3</div>
+                    <div class="col-md-3 absense">3</div>
+                    <div class="col-md-3 real_late">3</div>
+                    <div class="col-md-3 approved_leave">3</div>
+                  </div>
+               </td>
+               <td></td>
+             </tr>
+             
+           </tbody>
+         </table>
+
+         <div class="row col-md-12">
+           <div class="col-md-2 col-md-offset-8">
+            <button type="button" class="btn btn-primary col-md-12" style="margin:5px">输入成绩</button>
+           </div>
+           <div class="col-md-2">
+            <button type="button" class="btn btn-primary col-md-12" style="margin:5px">确认保存</button>
+           </div>
+        </div>
 
       </div>
 
