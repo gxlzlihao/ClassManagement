@@ -48,8 +48,12 @@ ActiveRecord::Schema.define(version: 20160529020248) do
   create_table "students", force: :cascade do |t|
     t.string   "name",           limit: 255
     t.integer  "everyday_grade", limit: 4
+    t.integer  "class_unit_id",  limit: 4
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
 
+  add_index "students", ["class_unit_id"], name: "fk_rails_e0b6de603b", using: :btree
+
+  add_foreign_key "students", "class_units"
 end

@@ -5,6 +5,7 @@ class CreateStudents < ActiveRecord::Migration
         t.string :name
         t.integer :everyday_grade
 
+        t.belongs_to :class_unit, foreign_key: true
         t.timestamps null: false
     end
 
