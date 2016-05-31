@@ -1,0 +1,34 @@
+<% content_for :stylesheets do %>
+    <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
+    <%= stylesheet_link_tag 'common/navbar' %>
+<% end %>
+
+<% content_for :javascripts do %>
+    <%= javascript_include_tag 'common/ie-emulation-modes-warning' %>
+    <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
+    <%= javascript_include_tag 'common/jquery/jquery' %>
+    <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+<% end %>
+
+<div class="container">
+    <div class="row col-xs-12">
+        <div class="col-xs-2 col-xs-offset-2" style="padding:0"><h4> 学号 </h4></div>
+        <div class="col-xs-6">
+            <input type="text" class="form-control col-xs-12" id="input_student_id" placeholder="">
+        </div>
+    </div>
+    <div class="row col-xs-12">
+        <div class="col-xs-2 col-xs-offset-2" style="padding:0"><h4> 密码 </h4></div>
+        <div class="col-xs-6">
+            <input type="password" class="form-control col-xs-12" id="input_student_password" placeholder="">
+        </div>
+    </div>
+    <div class="row col-xs-12 text-center">
+        <a href="/client/course_browser"><button type="button" class="btn btn-primary" style="margin:20px">  登录  </button></a>
+    </div>
+    <style>
+        div.container div.row.col-xs-12:first-child {
+            margin-top: 100px;
+        }
+    </style>
+</div>

@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     get '/homework/details' => 'homeworkdetails#index'
     get '/attendance/details' => 'attendancedetails#index'
 
+    get '/client/index' => 'client_index#index'
+    get '/client/course_browser' => 'client_index#course_browser'
+    get '/client/client_homepage' => 'client_index#client_homepage'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

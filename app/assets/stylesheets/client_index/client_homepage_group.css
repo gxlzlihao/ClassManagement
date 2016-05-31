@@ -1,0 +1,25 @@
+div#main_groups{
+    position: relative;
+    display: block;
+}
+div#main_groups div:first-child{
+    position: relative;
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+div#main_groups div:first-child input{
+    position: relative;
+    margin: 5px auto;
+}
+div#main_groups div:nth-of-child(2){
+    position: relative;
+    display: block;
+    margin: 5px auto;
+    overflow: hidden;
+}
+div#main_groups div:nth-of-child(2) table{
+    position: relative;
+    display: block;
+    margin: 5px auto;
+}

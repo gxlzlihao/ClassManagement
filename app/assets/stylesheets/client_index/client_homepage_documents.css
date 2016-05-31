@@ -1,0 +1,25 @@
+div#fragment_document_list{
+    display: none;
+}
+div#fragment_document_details{
+    display: none;
+}
+
+div#fragment_document_list ul.list-group li.list-group-item{
+    text-align: left;
+}
+div#fragment_document_list ul.list-group li.list-group-item img{
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+    width: 40px;
+    height: 40px;
+}
+div#fragment_document_list ul.list-group li.list-group-item div{
+    position: relative;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 0;
+}

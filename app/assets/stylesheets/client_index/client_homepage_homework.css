@@ -1,0 +1,11 @@
+div.homework_sector{
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+div#fragment_homework_list{
+    display: none;
+}
+div#fragment_homework_details{
+    display: none;
+}
