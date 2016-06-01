@@ -1,6 +1,6 @@
 div#main_groups{
     position: relative;
-    display: block;
+    display: none;
 }
 div#main_groups div:first-child{
     position: relative;

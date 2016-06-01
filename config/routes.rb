@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     get '/client/index' => 'client_index#index'
     get '/client/course_browser' => 'client_index#course_browser'
     get '/client/client_homepage' => 'client_index#client_homepage'
+    get '/client/everyday_grade' => 'client_index#everyday_grade'
+    get '/client/course_signin' => 'client_index#course_signin'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

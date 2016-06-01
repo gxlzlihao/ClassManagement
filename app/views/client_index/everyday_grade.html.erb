@@ -1,0 +1,142 @@
+<% content_for :stylesheets do %>
+    <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
+    <%= stylesheet_link_tag 'common/navbar' %>
+<% end %>
+
+<% content_for :javascripts do %>
+    <%= javascript_include_tag 'common/ie-emulation-modes-warning' %>
+    <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
+    <%= javascript_include_tag 'common/jquery/jquery' %>
+    <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+    <%= javascript_include_tag 'client_index/client_index_everyday_grade' %>
+<% end %>
+
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top animate" style="margin-bottom:0">
+        <div class="container navbar-more visible-xs"></div>
+        <div class="container">
+            <div class="navbar-header hidden-xs">
+                <a class="navbar-brand" href="#"><h4>课程管理系统</h4></a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right mobile-bar">
+                <li>
+                    <a class="navbar-brand" href="#">
+                        <%= image_tag "common/left_arrow_icon.png", alt: "common/left_arrow_icon.png", id: "topbar_thumbnail_image" %>
+                        <style>
+                            img#topbar_thumbnail_image{
+                                width:40px;
+                                height:40px;
+                            }
+                        </style>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="sub_navbar" class="row" style="margin-top:45px;background-color:#222222">
+        <div class="col-xs-12">
+            <div class="col-xs-3 active">
+                <h4>考勤</h4>
+            </div>
+            <div class="col-xs-3">
+                <h4>表现</h4>
+            </div>
+            <div class="col-xs-3">
+                <h4>作业</h4>
+            </div>
+        </div>
+        <style>
+            div#sub_navbar div div h4{
+                text-align: center;
+                color: white;
+            }
+            div#sub_navbar div div.active{
+                border-bottom: 4px solid white;
+            }
+        </style>
+    </div>
+    <div id="main" class="row" style="margin-top:0px">
+        <div id="main_attendance" style="margin-bottom:10px">
+            <div class="col-xs-12">
+                <div class="col-xs-3 text-center">
+                    <h1>2</h1>
+                    <h4>出勤</h4>
+                </div>
+                <div class="col-xs-3 text-center">
+                    <h1>2</h1>
+                    <h4>迟到</h4>
+                </div>
+                <div class="col-xs-3 text-center">
+                    <h1>2</h1>
+                    <h4>旷课</h4>
+                </div>
+                <div class="col-xs-3 text-center">
+                    <h1>2</h1>
+                    <h4>请假</h4>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <ul class="list-group">
+                      <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <h4>签到时间：1月12日</h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-primary" >签到</button>
+                            </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <h4>签到时间：1月12日</h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-primary" >签到</button>
+                            </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <h4>签到时间：1月12日</h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-primary" >签到</button>
+                            </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <h4>签到时间：1月12日</h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-primary" >签到</button>
+                            </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <h4>签到时间：1月12日</h4>
+                            </div>
+                            <div class="col-xs-4">
+                                <button type="button" class="btn btn-primary" >签到</button>
+                            </div>
+                        </div>
+                      </li>
+                </ul>
+            </div>
+        </div>
+        <div id="main_performance"></div>
+        <div id="main_homework"></div>
+        <style>
+            div#main>div{
+                display:none;
+            }
+        </style>
+    </div>
+</div>

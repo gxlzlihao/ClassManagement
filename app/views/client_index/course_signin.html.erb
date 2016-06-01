@@ -1,0 +1,44 @@
+<% content_for :stylesheets do %>
+    <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
+    <%= stylesheet_link_tag 'common/navbar' %>
+<% end %>
+
+<% content_for :javascripts do %>
+    <%= javascript_include_tag 'common/ie-emulation-modes-warning' %>
+    <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
+    <%= javascript_include_tag 'common/jquery/jquery' %>
+    <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+<% end %>
+
+<div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top animate" style="margin-bottom:0">
+        <div class="container navbar-more visible-xs"></div>
+        <div class="container">
+            <div class="navbar-header hidden-xs">
+                <a class="navbar-brand" href="#"><h4>课程管理系统</h4></a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right mobile-bar">
+                <li>
+                    <a class="navbar-brand" href="#">
+                        <%= image_tag "common/left_arrow_icon.png", alt: "common/left_arrow_icon.png", id: "topbar_thumbnail_image" %>
+                        <style>
+                            img#topbar_thumbnail_image{
+                                width:40px;
+                                height:40px;
+                            }
+                        </style>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="main" class="row" style="position:relative;margin-top:45px">
+        <div class="col-xs-12 text-center">
+            <h5 style="margin-top:50px">请手动输入数字，完成签到。</h5>
+            <h6>（数字由任课教师提供）</h6>
+            <input id="input_number" type="text" class="form-control" style="margin-top:50px"></input>
+            <button id="submit_number" type="button" class="btn btn-primary" style="margin:20px">提交</button>
+        </div>
+    </div>
+</div>

@@ -99,7 +99,76 @@
                     </div>
                 </div>
             </div>
-            <div id="fragment_homework_details" class="col-xs-12"></div>
+            <div id="fragment_homework_details" class="col-xs-12">
+                <div id="homework_description" class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-6 text-left">
+                            <h4>作业标题一</h4>
+                        </div>
+                        <div class="col-xs-6 text-center">
+                            <h5 style="color:red">截止时间：1月31日</h5>
+                        </div>
+                    </div>
+                    <div class="row col-xs-12" style="margin: 5px 0;border: 1px solid black">
+                        <div class="row col-xs-12 text-left">
+                            <h4>普通附件</h4>
+                        </div>
+                        <div class="row col-xs-12">
+                            <div class="col-xs-4 text-center">
+                                <%= image_tag "common/pdf_icon.png", alt: "common/pdf_icon.png", class: "thumbnail_image" %>
+                            </div>
+                            <div class="col-xs-8 text-left">
+                                <h4>附件名字</h4>
+                                <a><h5 style="color:red">下载</h5></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="homework_past_list" class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-6 text-left">
+                            <h4>已经完成作业</h4>
+                        </div>
+                    </div>
+                    <div id="no_past_reminds" class="text-left">
+                        <h4>您还没有提交作业</h4>
+                    </div>
+                    <div id="past_list">
+                        <ul class="list-group">
+                              <li class="list-group-item">
+                                <%= image_tag "common/pdf_icon.png", alt: "common/pdf_icon.png", class: "thumbnail_image" %>
+                                <div>
+                                    <h6>文件名字一</h6>
+                                </div>
+                              </li>
+                              <li class="list-group-item">
+                                <%= image_tag "common/word_icon.png", alt: "common/word_icon.png", class: "thumbnail_image" %>
+                                <div>
+                                    <h6>文件名字二</h6>
+                                </div>
+                              </li>
+                              <li class="list-group-item">
+                                <%= image_tag "common/zip_icon.png", alt: "common/zip_icon.png", class: "thumbnail_image" %>
+                                <div>
+                                    <h6>文件名字三</h6>
+                                </div>
+                              </li>
+                              <li class="list-group-item">
+                                <%= image_tag "common/excel_icon.png", alt: "common/excel_icon.png", class: "thumbnail_image" %>
+                                <div>
+                                    <h6>文件名字四</h6>
+                                </div>
+                              </li>
+                              <li class="list-group-item">
+                                <%= image_tag "common/powerpoint_icon.png", alt: "common/powerpoint_icon.png", class: "thumbnail_image" %>
+                                <div>
+                                    <h6>文件名字五</h6>
+                                </div>
+                              </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="main_documents">
             <div id="fragment_document_list" class="col-xs-12">

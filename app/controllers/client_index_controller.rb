@@ -5,4 +5,11 @@ class ClientIndexController < ApplicationController
 
     def client_homepage
     end
+
+    def everyday_grade
+    end
+
+    def course_signin
+    end
+    
 end
