@@ -11,6 +11,7 @@
     <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
     <%= javascript_include_tag 'common/jquery/jquery' %>
     <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+    <%= javascript_include_tag 'client_index/client_index_homepage' %>
 <% end %>
 
 <div class="container">
@@ -23,39 +24,31 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right mobile-bar">
-                <li>
+                <li id="navbar_tab_homework">
                     <a href="#">
                         <span class="menu-icon fa "></span>
                         <h4>作业</h4>
                     </a>
                 </li>
-                <li>
+                <li id="navbar_tab_document">
                     <a href="#">
                         <span class="menu-icon fa "></span>
-                        <span class="hidden-xs"><h4>资料</h4></span>
-                        <span class="visible-xs"><h4>资料</h4></span>
+                        <span><h4>资料</h4></span>
                     </a>
                 </li>
-                <li>
+                <li id="navbar_tab_test">
                     <a href="#">
                         <span class="menu-icon fa "></span>
                         <h4>测试</h4>
                     </a>
                 </li>
-                <li class="hidden-xs">
+                <li id="navbar_tab_group">
                     <a href="#">
                         <span class="menu-icon fa "></span>
-                        <h4>平时成绩</h4>
+                        <span><h4>小组</h4></span>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <span class="menu-icon fa "></span>                     
-                        <span class="hidden-xs"><h4>小组</h4></span>
-                        <span class="visible-xs"><h4>小组</h4></span>
-                    </a>
-                </li>
-                <li class="visible-xs">
+                <li id="navbar_tab_everyday_grade">
                     <a href="#navbar-more-show">
                         <span class="menu-icon fa "></span>
                         <h4>平时成绩</h4>
@@ -217,32 +210,34 @@
         <div id="main_tests"></div>
         <div id="main_grades"></div>
         <div id="main_groups">
-            <div class="row input-group text-center">
-                <input type="text" class="form-control" placeholder="搜索" aria-describedby="basic-addon2">
-            </div>
-            <div class="row">
-                <table class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th>姓名</th>
-                            <th>学号</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>测试人员</td>
-                            <td>231241</td>
-                        </tr>
-                        <tr>
-                            <td>测试人员</td>
-                            <td>231241</td>
-                        </tr>
-                        <tr>
-                            <td>测试人员</td>
-                            <td>231241</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div id="fragment_group_info">
+                <div class="row input-group text-center">
+                    <input type="text" class="form-control" placeholder="搜索" aria-describedby="basic-addon2">
+                </div>
+                <div class="row">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>学号</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>测试人员</td>
+                                <td>231241</td>
+                            </tr>
+                            <tr>
+                                <td>测试人员</td>
+                                <td>231241</td>
+                            </tr>
+                            <tr>
+                                <td>测试人员</td>
+                                <td>231241</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

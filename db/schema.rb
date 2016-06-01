@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 20160530002049) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "course_class_units", id: false, force: :cascade do |t|
+    t.integer "class_unit_id", limit: 4
+    t.integer "course_id",     limit: 4
+  end
+
+  add_index "course_class_units", ["class_unit_id"], name: "index_course_class_units_on_class_unit_id", using: :btree
+  add_index "course_class_units", ["course_id"], name: "index_course_class_units_on_course_id", using: :btree
+
   create_table "course_records", force: :cascade do |t|
     t.integer  "grade",      limit: 4
     t.integer  "student_id", limit: 4
@@ -52,14 +60,6 @@ ActiveRecord::Schema.define(version: 20160530002049) do
   end
 
   add_index "courses", ["teacher_id"], name: "index_courses_on_teacher_id", using: :btree
-
-  create_table "courses_class_units", id: false, force: :cascade do |t|
-    t.integer "class_unit_id", limit: 4
-    t.integer "course_id",     limit: 4
-  end
-
-  add_index "courses_class_units", ["class_unit_id"], name: "index_courses_class_units_on_class_unit_id", using: :btree
-  add_index "courses_class_units", ["course_id"], name: "index_courses_class_units_on_course_id", using: :btree
 
   create_table "documents", force: :cascade do |t|
     t.string   "name",       limit: 255

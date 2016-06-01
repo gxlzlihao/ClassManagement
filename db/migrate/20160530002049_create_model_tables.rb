@@ -28,7 +28,7 @@ class CreateModelTables < ActiveRecord::Migration
         t.timestamps null: false
     end
 
-    create_table :courses_class_units, id: false do |t|
+    create_table :course_class_units, id: false do |t|
       t.belongs_to :class_unit, index: true
       t.belongs_to :course, index: true
     end

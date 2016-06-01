@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     get '/index/everyday_grade' => 'index#everyday_grade'
     get '/index/attendance' => 'index#attendance' 
 
+    post '/index/create_course' => 'index#create_course'
+    post '/index/create_student' => 'index#create_student'
+
     get '/homework/details' => 'homeworkdetails#index'
     get '/attendance/details' => 'attendancedetails#index'
 
@@ -15,6 +18,8 @@ Rails.application.routes.draw do
     get '/client/client_homepage' => 'client_index#client_homepage'
     get '/client/everyday_grade' => 'client_index#everyday_grade'
     get '/client/course_signin' => 'client_index#course_signin'
+
+    post '/client/signin' => 'client_index#client_signin'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
