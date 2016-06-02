@@ -13,6 +13,13 @@
 
 ActiveRecord::Schema.define(version: 20160530002049) do
 
+  create_table "attendance_checks", force: :cascade do |t|
+    t.integer  "target_number", limit: 4
+    t.boolean  "status"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "attendance_records", force: :cascade do |t|
     t.integer  "status",        limit: 4
     t.integer  "target_number", limit: 4

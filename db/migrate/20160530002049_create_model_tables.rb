@@ -79,5 +79,11 @@ class CreateModelTables < ActiveRecord::Migration
         t.timestamps null: false
     end
 
+    create_table :attendance_checks do |t|
+        t.integer :target_number
+        t.boolean :status
+        t.timestamps null: false
+    end
+
   end
 end

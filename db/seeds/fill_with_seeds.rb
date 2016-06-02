@@ -35,3 +35,7 @@ Course.transaction do
         end
     end
 end
+
+(1..3).each do |x|
+    AttendanceCheck.create( :target_number => (1000+x), :status => 0 )
+end

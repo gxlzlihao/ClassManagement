@@ -16,8 +16,6 @@ class ClientIndexController < ApplicationController
 
     def client_signin
 
-        puts params[:client_password]
-
         @students = Student.find_by( id: params[:client_id], password: params[:client_password] )
 
         if @students == nil
@@ -29,6 +27,32 @@ class ClientIndexController < ApplicationController
         respond_to do |format|
             format.json { render json: res, status: "200" }
         end
+    end
+
+    def verify_signin
+
+        @correct_number = AttendanceCheck.where( status: 0 )
+
+        if @correct_number == nil
+            res = '{"result":"check_not_start"}'
+        else
+            @correct_number = @correct_number.sort_by &:created_at
+            @correct_number = @correct_number.first
+
+            puts @correct_number.target_number
+            puts params[:input_number].to_i
+
+            if params[:input_number].to_i == @correct_number.target_number
+                res = '{"result":"ok"}'
+            else
+                res = '{"result":"error"}'
+            end
+        end
+
+        respond_to do |format|
+            format.json { render json: res, status: "200" }
+        end
+
     end
     
 end

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get '/client/course_signin' => 'client_index#course_signin'
 
     post '/client/signin' => 'client_index#client_signin'
+    post '/client/verify_signin' => 'client_index#verify_signin'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

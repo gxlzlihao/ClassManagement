@@ -9,6 +9,7 @@
         <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
         <%= javascript_include_tag 'common/jquery/jquery' %>
         <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+        <%= javascript_include_tag 'index/index_attendance' %>
     <% end %>
 
     <div class="container">
@@ -154,14 +155,14 @@
               <button type="button" class="btn btn-default" 
                  data-dismiss="modal">取消
               </button>
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#newAttendance">创建新考勤</button>
+                <a id="refresh_target_number"><button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" data-target="#newAttendanceCheck">创建新考勤</button></a>
            </div>
          </div>
        </div>
 </div>
 
 
-<div class="modal fade" id="newAttendance" tabindex="-1" role="dialog" aria-labelledby="newAttendanceLabel" aria-hidden="true">
+<div class="modal fade" id="newAttendanceCheck" tabindex="-1" role="dialog" aria-labelledby="newAttendanceLabel" aria-hidden="true">
      <div class="modal-dialog">
         <div class="modal-content col-md-12">
            <div class="modal-header">
