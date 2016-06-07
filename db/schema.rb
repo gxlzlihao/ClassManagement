@@ -16,20 +16,25 @@ ActiveRecord::Schema.define(version: 20160530002049) do
   create_table "attendance_checks", force: :cascade do |t|
     t.integer  "target_number", limit: 4
     t.boolean  "status"
+    t.integer  "course_id",     limit: 4
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
+
+  add_index "attendance_checks", ["course_id"], name: "fk_rails_77d3a3b7a3", using: :btree
 
   create_table "attendance_records", force: :cascade do |t|
-    t.integer  "status",        limit: 4
-    t.integer  "target_number", limit: 4
-    t.integer  "student_id",    limit: 4
-    t.integer  "course_id",     limit: 4
-    t.integer  "class_unit_id", limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.integer  "status",              limit: 4
+    t.integer  "target_number",       limit: 4
+    t.integer  "student_id",          limit: 4
+    t.integer  "course_id",           limit: 4
+    t.integer  "class_unit_id",       limit: 4
+    t.integer  "attendance_check_id", limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
+  add_index "attendance_records", ["attendance_check_id"], name: "fk_rails_656fdab600", using: :btree
   add_index "attendance_records", ["class_unit_id"], name: "fk_rails_9fef6ec814", using: :btree
   add_index "attendance_records", ["course_id"], name: "fk_rails_f76ac226c4", using: :btree
   add_index "attendance_records", ["student_id"], name: "fk_rails_828d16c97c", using: :btree
@@ -50,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160530002049) do
 
   create_table "course_records", force: :cascade do |t|
     t.integer  "grade",      limit: 4
+    t.integer  "index",      limit: 4
     t.integer  "student_id", limit: 4
     t.integer  "course_id",  limit: 4
     t.datetime "created_at",           null: false
@@ -78,6 +84,19 @@ ActiveRecord::Schema.define(version: 20160530002049) do
 
   add_index "documents", ["course_id"], name: "fk_rails_4248d91278", using: :btree
 
+  create_table "everyday_grades", force: :cascade do |t|
+    t.integer  "grade",         limit: 4
+    t.integer  "student_id",    limit: 4
+    t.integer  "course_id",     limit: 4
+    t.integer  "class_unit_id", limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "everyday_grades", ["class_unit_id"], name: "fk_rails_0d50ca14ee", using: :btree
+  add_index "everyday_grades", ["course_id"], name: "fk_rails_d424037190", using: :btree
+  add_index "everyday_grades", ["student_id"], name: "fk_rails_5d07ea2431", using: :btree
+
   create_table "homework_records", force: :cascade do |t|
     t.integer  "grade",         limit: 4
     t.boolean  "status",                    default: false
@@ -104,12 +123,11 @@ ActiveRecord::Schema.define(version: 20160530002049) do
   add_index "homeworks", ["course_id"], name: "index_homeworks_on_course_id", using: :btree
 
   create_table "students", force: :cascade do |t|
-    t.string   "name",           limit: 255
-    t.string   "password",       limit: 255
-    t.integer  "everyday_grade", limit: 4
-    t.integer  "class_unit_id",  limit: 4
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "name",          limit: 255
+    t.string   "password",      limit: 255
+    t.integer  "class_unit_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "students", ["class_unit_id"], name: "fk_rails_e0b6de603b", using: :btree
@@ -121,12 +139,17 @@ ActiveRecord::Schema.define(version: 20160530002049) do
     t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "attendance_checks", "courses"
+  add_foreign_key "attendance_records", "attendance_checks"
   add_foreign_key "attendance_records", "class_units"
   add_foreign_key "attendance_records", "courses"
   add_foreign_key "attendance_records", "students"
   add_foreign_key "course_records", "courses"
   add_foreign_key "course_records", "students"
   add_foreign_key "documents", "courses"
+  add_foreign_key "everyday_grades", "class_units"
+  add_foreign_key "everyday_grades", "courses"
+  add_foreign_key "everyday_grades", "students"
   add_foreign_key "homework_records", "class_units"
   add_foreign_key "homework_records", "homeworks"
   add_foreign_key "homework_records", "students"

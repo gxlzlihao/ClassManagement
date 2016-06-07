@@ -1,8 +1,8 @@
 # for used outside PRChina
-source 'https://rubygems.org'
+# source 'https://rubygems.org'
 
 # for used in PRChina
-# source 'https://ruby.taobao.org/'
+source 'https://ruby.taobao.org/'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -40,6 +40,8 @@ gem 'rails-admin-scaffold', '~> 0.1.0'
 gem 'devise'
 
 gem 'turbolinks'
+
+gem 'json'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

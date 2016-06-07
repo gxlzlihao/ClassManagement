@@ -9,9 +9,19 @@ Rails.application.routes.draw do
 
     post '/index/create_course' => 'index#create_course'
     post '/index/create_student' => 'index#create_student'
+    post '/index/update_student' => 'index#update_student'
+    post '/index/upload_document' => 'index#upload_document'
+    post '/index/download_document' => 'index#download_document'
+    post '/index/clear_user_data' => 'index#clear_user_data'
 
     get '/homework/details' => 'homeworkdetails#index'
+
+    post '/homework/update_details' => 'homeworkdetails#update_details'
+
     get '/attendance/details' => 'attendancedetails#index'
+
+    post '/attendance/create_new_attendance_check' => 'attendancedetails#create_new_attendance_check'
+    post '/attendance/terminate_attendance_check' => 'attendancedetails#terminate_attendance_check'
 
     get '/client/index' => 'client_index#index'
     get '/client/course_browser' => 'client_index#course_browser'

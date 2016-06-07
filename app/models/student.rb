@@ -3,4 +3,5 @@ class Student < ActiveRecord::Base
     has_many :homework_records
     has_many :attendance_records
     has_many :course_records
+    has_many :everyday_grades
 end

@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: https://ruby.taobao.org/
   specs:
     actionmailer (4.2.6)
       actionpack (= 4.2.6)
@@ -169,6 +169,7 @@ DEPENDENCIES
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  json
   mina
   mysql2 (>= 0.3.13, < 0.5)
   passenger (>= 5.0.25)

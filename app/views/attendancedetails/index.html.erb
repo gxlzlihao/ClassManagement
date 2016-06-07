@@ -9,6 +9,7 @@
         <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
         <%= javascript_include_tag 'common/jquery/jquery' %>
         <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+        <%= javascript_include_tag 'attendancedetails' %>
     <% end %>
 
     <div class="container">
@@ -45,7 +46,7 @@
                   <li><a href="#">One more separated link</a></li>
                 </ul>
               </li>
-              <button type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
+              <button id="btnClearUserData" type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
             </ul>
       
           </div><!--/.nav-collapse -->
@@ -75,13 +76,13 @@
 
         <div class="row col-md-12" style="margin: 10px 0">
           <div class="col-md-4">
-              <span>应到： </span><span id="should_arrive_result">100</span>
+              <span>应到： </span><span id="should_arrive_result"><%= @attendance_records.count() %></span>
           </div>
           <div class="col-md-4">
-              <span>实到： </span><span id="real_arrive_result">96</span>
+              <span>实到： </span><span id="real_arrive_result"><%= @attendance_records.where( :status => 1 ).count() %></span>
           </div>
           <div class="col-md-4">
-              <span>缺勤： </span><span id="absence_result">4</span>
+              <span>缺勤： </span><span id="absence_result"><%= @attendance_records.where( :status => 2 ).count() %></span>
           </div>
         </div>
 
@@ -95,33 +96,21 @@
              </tr>
            </thead>
            <tbody>
-             <tr>
-               <td>学生一</td>               
-               <td>20112</td>
-               <td>经管一班</td>
-               <td>
-                 <select class="form-control">
-                    <option>缺勤</option>
-                    <option>迟到</option>
-                    <option>请假</option>
-                    <option>出勤</option>
-                  </select>
-               </td>
-             </tr>
-             <tr>
-               <td>学生二</td>               
-               <td>20898</td>
-               <td>经管一斑</td>
-               <td>
-                  <select class="form-control">
-                    <option>缺勤</option>
-                    <option>迟到</option>
-                    <option>请假</option>
-                    <option>出勤</option>
-                  </select>
-               </td>
-             </tr>
-             
+              <% @attendance_records.each do |ar| %>
+                  <tr>
+                   <td><%= ar.student.name %></td>               
+                   <td><%= ar.student_id %></td>
+                   <td><%= ar.class_unit.name %></td>
+                   <td>
+                     <select class="form-control">
+                        <option>缺勤</option>
+                        <option>迟到</option>
+                        <option>请假</option>
+                        <option>出勤</option>
+                      </select>
+                   </td>
+                 </tr>
+              <% end %>
              
            </tbody>
          </table>

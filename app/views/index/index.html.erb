@@ -16,7 +16,7 @@
     <div class="container">
 
       <!-- Static navbar -->
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default" style="z-index:100">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -36,15 +36,11 @@
               <li><a href="/index/attendance">考勤</a></li>
 
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统分析与设计 <span class="caret"></span></a>
+                <a id="now_course_info" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @courses.first.id%>:<%= @courses.first.name %>  <span class="caret"></span>  </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <% @courses.each do |cz| %>
+                    <li><a class="course_alternatives" href="#"><%= cz.id %>:<%= cz.name %></a></li>
+                  <% end %>
                 </ul>
               </li>
               <button type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
@@ -65,7 +61,7 @@
           <li><a data-toggle="modal" data-target="#insertClass">创建课程</a></li>
           <li><a data-toggle="modal" data-target="#insertStudent">创建学生</a></li>
           <% @class_units.each do |clz| %>
-            <li><a href="#"><%= clz.name %></a></li>
+            <li class="class_unit_alternatives"><span class="_hide class_unit_id"><%= clz.id %></span><a href="#"><%= clz.name %></a></li>
           <% end %>
         </ul>
       </div>
@@ -81,102 +77,27 @@
              </tr>
            </thead>
            <tbody>
-             <tr>
-               <td>张三</td>
-               <td></td>
-                <td>
-                  <select class="form-control">
-                    <% @class_units.each do |clz| %>
-                      <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %></span><%= clz.name %></option>
+
+              <% @students.each do |stu| %>
+                <tr class="student_record_row">
+                  <td><%= stu.name %></td>
+                  <td><%= stu.id %></td>
+                  <td>
+                      <span class="_hide class_unit_id" style="display: none"><%= stu.class_unit_id %></span>
+                      <select class="form-control">
+                        <% @class_units.each do |clz| %>
+                          <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %>:</span><%= clz.name %></option>
+                        <% end %>
+                      </select>
+                  </td>
+                  <!-- <td><%= stu.everyday_grades.first.grade %></td> -->
+                  <td>
+                    <% stu.everyday_grades.each do |grades| %>
+                      <span class="everyday_grade" name=<%= grades.course.id %>> <%= grades.grade %> </span>
                     <% end %>
-                  </select>
-                </td>
-               <td></td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td></td>
-                <td>
-                  <select class="form-control">
-                    <% @class_units.each do |clz| %>
-                      <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %></span><%= clz.name %></option>
-                    <% end %>
-                  </select>
-                </td>
-               <td></td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td></td>
-                <td>
-                  <select class="form-control">
-                    <% @class_units.each do |clz| %>
-                      <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %></span><%= clz.name %></option>
-                    <% end %>
-                  </select>
-                </td>
-               <td></td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td></td>
-                <td>
-                  <select class="form-control">
-                    <% @class_units.each do |clz| %>
-                      <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %></span><%= clz.name %></option>
-                    <% end %>
-                  </select>
-                </td>
-               <td></td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td></td>
-                <td>
-                  <select class="form-control">
-                    <% @class_units.each do |clz| %>
-                      <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %></span><%= clz.name %></option>
-                    <% end %>
-                  </select>
-                </td>
-               <td></td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td></td>
-                <td>
-                  <select class="form-control">
-                    <% @class_units.each do |clz| %>
-                      <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %></span><%= clz.name %></option>
-                    <% end %>
-                  </select>
-                </td>
-               <td></td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td></td>
-                <td>
-                  <select class="form-control">
-                    <% @class_units.each do |clz| %>
-                      <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %></span><%= clz.name %></option>
-                    <% end %>
-                  </select>
-                </td>
-               <td></td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td></td>
-                <td>
-                  <select class="form-control">
-                    <% @class_units.each do |clz| %>
-                      <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %></span><%= clz.name %></option>
-                    <% end %>
-                  </select>
-                </td>
-               <td></td>
-             </tr>
+                  </td>
+                </tr>
+              <% end %>
 
            </tbody>
          </table>

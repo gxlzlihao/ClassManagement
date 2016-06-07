@@ -2,6 +2,7 @@
     <% content_for :stylesheets do %>
         <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
         <%= stylesheet_link_tag 'common/navbar' %>
+        <%= stylesheet_link_tag 'homeworkdetails' %>
     <% end %>
 
     <% content_for :javascripts do %>
@@ -9,12 +10,13 @@
         <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
         <%= javascript_include_tag 'common/jquery/jquery' %>
         <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+        <%= javascript_include_tag 'homeworkdetails' %>
     <% end %>
 
     <div class="container">
 
       <!-- Static navbar -->
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default" style="z-index:100">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -34,15 +36,17 @@
               <li><a href="/index/attendance">考勤</a></li>
               
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统分析与设计 <span class="caret"></span></a>
+                <a id="now_course_info" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <% if params[:homework_id] != nil%>
+                    <%= @courses.find_by_id(params[:homework_id]).id%>:<%= @courses.find_by_id(params[:homework_id]).name %>  
+                  <% else %>
+                    <%= @courses.first.id%>:<%= @courses.first.name %> 
+                  <% end %>
+                  <span class="caret"></span>  </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <% @courses.each do |cz| %>
+                    <li><a class="course_alternatives" href="/homework/details?homework_id=<%= cz.id %>"><%= cz.id %>:<%= cz.name %></a></li>
+                  <% end %>
                 </ul>
               </li>
               <button type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
@@ -62,12 +66,9 @@
         <ul class="nav nav-pills nav-stacked nav-tabs-left col-xs-12 col-md-2">
           <li><a data-toggle="modal" data-target="#insertClass">创建课程</a></li>
           <li><a data-toggle="modal" data-target="#insertStudent">创建学生</a></li>
-          <li><a href="#">信管1班</a></li>
-          <li><a href="#">信管2班</a></li>
-          <li><a href="#">信管3班</a></li>
-          <li><a href="#">信管4班</a></li>
-          <li><a href="#">信管5班</a></li>
-          <li><a href="#">信管6班</a></li>
+          <% @class_units.each do |clz| %>
+            <li class="class_unit_alternatives"><span class="_hide class_unit_id"><%= clz.id %></span><a href="#"><%= clz.name %></a></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-xs-12 col-md-10">
@@ -75,8 +76,8 @@
         <table class="table table-striped table-bordered">
            <thead>
              <tr>
-               <th>阅读书前面30页</th>
-               <th>发布时间：2016.3.2</th>
+               <th><%= @ori_hw.name %></th>
+               <th>发布时间：<%= @ori_hw.created_at %></th>
                <th><button type="button" class="btn btn-default" style="margin:0px">批量下载</button></th>
              </tr>
            </thead>
@@ -89,39 +90,29 @@
              </tr>
            </thead>
            <tbody>
-             <tr>
-               <td>张三</td>
-               <td>已提交</td>
-               <td>90</td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td>已提交</td>
-               <td>90</td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td>已提交</td>
-               <td>90</td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td>已提交</td>
-               <td>90</td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td>已提交</td>
-               <td>90</td>
-             </tr>
-             <tr>
-               <td>张三</td>
-               <td>已提交</td>
-               <td>90</td>
-             </tr>
+              <% @homeworks.each do |hw| %>
+                <tr class="homework_item_record">
+                    <td><span class="homework_record_id"><%= hw.id %></span><%= hw.student.name%><span class="homework_record_class_unit_id"><%= hw.class_unit_id %></span></td>
+                    <td>
+                      <% if hw.status == true %>
+                        已经提交
+                      <% else %>
+                        未提交
+                      <% end %>
+                    </td>
+                    <td><%= hw.grade %></td>
+                </tr>
+              <% end %>
              
            </tbody>
          </table>
+
+         <div class="row col-md-12">
+            <div class="col-md-4 col-md-offset-8">
+                <button id="beginInput" type="button" class="btn btn-primary col-md-12" style="margin:0px">输入成绩</button>
+                <button id="confirmSave" type="button" class="btn btn-primary col-md-12 _hide" style="margin:0px">确认保存</button>
+            </div>
+         </div>
       </div>
 
 

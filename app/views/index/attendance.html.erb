@@ -2,6 +2,7 @@
     <% content_for :stylesheets do %>
         <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
         <%= stylesheet_link_tag 'common/navbar' %>
+        <%= stylesheet_link_tag 'index/index_attendance' %>
     <% end %>
 
     <% content_for :javascripts do %>
@@ -15,7 +16,7 @@
     <div class="container">
 
       <!-- Static navbar -->
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default" style="z-index:100">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -35,15 +36,11 @@
               <li class="active"><a href="/index/attendance">考勤</a></li>
               
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统分析与设计 <span class="caret"></span></a>
+                <a id="now_course_info" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @courses.first.id%>:<%= @courses.first.name %>  <span class="caret"></span>  </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <% @courses.each do |cz| %>
+                    <li><a class="course_alternatives" href="#"><%= cz.id %>:<%= cz.name %></a></li>
+                  <% end %>
                 </ul>
               </li>
               <button type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
@@ -63,12 +60,9 @@
         <ul class="nav nav-pills nav-stacked nav-tabs-left col-xs-12 col-md-2">
           <li><a data-toggle="modal" data-target="#insertClass">创建课程</a></li>
           <li><a data-toggle="modal" data-target="#insertStudent">创建学生</a></li>
-          <li><a href="#">信管1班</a></li>
-          <li><a href="#">信管2班</a></li>
-          <li><a href="#">信管3班</a></li>
-          <li><a href="#">信管4班</a></li>
-          <li><a href="#">信管5班</a></li>
-          <li><a href="#">信管6班</a></li>
+          <% @class_units.each do |clz| %>
+            <li class="class_unit_alternatives"><span class="_hide class_unit_id"><%= clz.id %></span><a href="#"><%= clz.name %></a></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-xs-12 col-md-10">
@@ -87,46 +81,33 @@
              </tr>
            </thead>
            <tbody>
-             <tr>
-               <td>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <a href="/attendance/details"><span>考勤课程：</span><span>信号与系统</span></a>
-                    </div>
-                    <div class="col-md-6">
-                      <span>考勤时间：</span><span>1月22日</span>
-                    </div>
-                  </div>
-                  <div class="row col-md-12">
-                      <div class="col-md-6">
-                        <span>考勤情况：应到 </span><span class="should_arrive">100</span><span> 实到 </span><span class="real_arrive">98</span><span> 缺勤 </span><span>2</span>
-                      </div>
-                  </div>
-                </td>
-             </tr>
-             <tr>
-               <td>
-                  <div class="row col-md-12">
-                    <div class="col-md-6">
-                      <a href="/attendance/details"><span>考勤课程：</span><span>信号与系统</span></a>
-                    </div>
-                    <div class="col-md-6">
-                      <span>考勤时间：</span><span>1月22日</span>
-                    </div>
-                  </div>
-                  <div class="row col-md-12">
-                      <div class="col-md-6">
-                        <span>考勤情况：应到 </span><span class="should_arrive">100</span><span> 实到 </span><span class="real_arrive">98</span><span> 缺勤 </span><span>2</span>
-                      </div>
-                  </div>
-               </td>
-             </tr>
+              <% @attendance_checks.each do |ac| %>
+
+                  <tr class="attendance_check_item">
+                     <td>
+                        <div class="row col-md-12">
+                          <div class="col-md-6">
+                            <span class="_hide attendance_check_id"><%= ac.id %></span><a href="/attendance/details?check_id=<%= ac.id %>" ><span>考勤课程：</span><span><%= ac.course.name %></span></a><span class="_hide course_id"><%= ac.course.id%></span>
+                          </div>
+                          <div class="col-md-6">
+                            <span>考勤时间：</span><span><%= ac.created_at %></span>
+                          </div>
+                        </div>
+                        <div class="row col-md-12">
+                            <div class="col-md-6">
+                              <span>考勤情况：应到 </span><span class="should_arrive"><%= @attendance_records.where( :attendance_check => ac, :status => 1 ).count() %></span><span> 实到 </span><span class="real_arrive"><%= @attendance_records.where( :attendance_check => ac, :status => 2 ).count() %></span><span> 缺勤 </span><span><%= @attendance_records.where( :attendance_check => ac, :status => 3 ).count() %></span>
+                            </div>
+                        </div>
+                      </td>
+                   </tr>
+
+              <% end %>
              
            </tbody>
          </table>
 
          <div class="col-md-2 col-md-offset-10">
-          <button type="button" class="btn btn-primary col-md-12" style="margin:5px" data-toggle="modal" data-target="#createNewAttendanceCheck">创建新考勤</button>
+          <a id="create_new_attendance_check"><button type="button" class="btn btn-primary col-md-12" style="margin:5px" data-toggle="modal" data-target="#createNewAttendanceCheck">创建新考勤</button></a>
         </div>
 
       </div>
@@ -145,10 +126,10 @@
            </div>
            <div class="modal-body row col-md-12">
               <div class="row col-md-12">
-                <h4 class="col-md-6">考勤课程：</h4><h4 class="col-md-6" id="attendanceCheckTargetClass">信号与系统</h4>
+                <h4 class="col-md-6">考勤课程：</h4><h4 class="col-md-6" id="attendanceCheckTargetCourse"><%= @courses.first.name %></h4>
               </div>
               <div class="row col-md-12">
-                <h4 class="col-md-6">考勤时间：</h4><h4 class="col-md-6" id="attendanceCheckTargetTime">1月22日</h4>
+                <h4 class="col-md-6">考勤时间：</h4><h4 class="col-md-6" id="attendanceCheckTargetTime"></h4>
               </div>
            </div>
            <div class="modal-footer">
@@ -175,10 +156,10 @@
               </h4>
            </div>
            <div class="modal-body row col-md-12">
-              <h1 class="text-center" id="attendanceCheckNumber">8829</h1>
+              <h1 class="text-center" id="attendanceCheckNumber">9999</h1>
            </div>
            <div class="modal-footer">
-              <a href="/attendance/details"><button type="button" class="btn btn-primary">考勤结束</button></a>
+              <a id="terminate_attendance_check" href="/attendance/details"><button type="button" class="btn btn-primary">考勤结束</button></a>
            </div>
          </div>
        </div>

@@ -2,6 +2,7 @@
     <% content_for :stylesheets do %>
         <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
         <%= stylesheet_link_tag 'common/navbar' %>
+        <%= stylesheet_link_tag 'index/index_everyday_grade' %>
     <% end %>
 
     <% content_for :javascripts do %>
@@ -9,6 +10,7 @@
         <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
         <%= javascript_include_tag 'common/jquery/jquery' %>
         <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+        <%= javascript_include_tag 'index/index_everyday_grade' %>
     <% end %>
 
     <div class="container">
@@ -93,63 +95,45 @@
              </tr>
            </thead>
            <tbody>
-             <tr>
-               <td></td>
-               <td></td>
-               <td>
-                  <div class="col-md-12">
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                  </div>
-               </td>
-               <td>
-                  <div class="col-md-12">
-                    <div class="col-md-3 real_attendance">3</div>
-                    <div class="col-md-3 absense">3</div>
-                    <div class="col-md-3 real_late">3</div>
-                    <div class="col-md-3 approved_leave">3</div>
-                  </div>
-               </td>
-               <td></td>
-             </tr>
-             <tr>
-               <td></td>
-               <td></td>
-               <td>
-                  <div class="col-md-12">
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                    <div class="col-md-1">1</div>
-                  </div>
-               </td>
-               <td>
-                  <div class="col-md-12">
-                    <div class="col-md-3 real_attendance">3</div>
-                    <div class="col-md-3 absense">3</div>
-                    <div class="col-md-3 real_late">3</div>
-                    <div class="col-md-3 approved_leave">3</div>
-                  </div>
-               </td>
-               <td></td>
-             </tr>
+              <% @startup_everyday_grades.each do |eg| %>
+                  <tr class="everydayGradeItem">
+                   <td> <%= eg.student.name%> </td>
+                   <td> <%= eg.student.id %> </td>
+                   <td>
+                      <div class="col-md-12">
+                        
+                        <% eg.student.course_records.where( "course_id=" + eg.course_id.to_s ).each do |cr| %>
+                            <div class="col-md-1">
+                                <% if cr.grade < 0 %>
+                                   - 
+                                <% else %>
+                                  <%= cr.grade %>
+                                <% end %>
+                            </div>
+                        <% end %>
+
+                      </div>
+                   </td>
+                   <td>
+                      <div class="col-md-12">
+                        <div class="col-md-3 real_attendance"><%= @attendance_records.where( :student_id => eg.student_id, :course_id => eg.course_id, :status => 1 ).count() %></div>
+                        <div class="col-md-3 absense"><%= @attendance_records.where( :student_id => eg.student_id, :course_id => eg.course_id, :status => 2 ).count() %></div>
+                        <div class="col-md-3 real_late"><%= @attendance_records.where( :student_id => eg.student_id, :course_id => eg.course_id, :status => 3 ).count() %></div>
+                        <div class="col-md-3 approved_leave"><%= @attendance_records.where( :student_id => eg.student_id, :course_id => eg.course_id, :status => 4 ).count() %></div>
+                      </div>
+                   </td>
+                   <td> <%= eg.grade %> </td>
+                 </tr>
+              <% end %>
              
            </tbody>
          </table>
 
          <div class="row col-md-12">
-           <div class="col-md-2 col-md-offset-8">
+           <div id="btnInputGrades" class="col-md-2 col-md-offset-8">
             <button type="button" class="btn btn-primary col-md-12" style="margin:5px">输入成绩</button>
            </div>
-           <div class="col-md-2">
+           <div id="btnConfirmSave" class="col-md-2 col-md-offset-8 _hide">
             <button type="button" class="btn btn-primary col-md-12" style="margin:5px">确认保存</button>
            </div>
         </div>

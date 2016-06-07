@@ -2,6 +2,7 @@
     <% content_for :stylesheets do %>
         <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
         <%= stylesheet_link_tag 'common/navbar' %>
+        <%= stylesheet_link_tag 'index/index_homework' %>
     <% end %>
 
     <% content_for :javascripts do %>
@@ -9,12 +10,13 @@
         <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
         <%= javascript_include_tag 'common/jquery/jquery' %>
         <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+        <%= javascript_include_tag 'index/index_homework' %>
     <% end %>
 
     <div class="container">
 
       <!-- Static navbar -->
-      <nav class="navbar navbar-default">
+      <nav class="navbar navbar-default" style="z-index:100">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -34,15 +36,11 @@
               <li><a href="/index/attendance">考勤</a></li>
               
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">系统分析与设计 <span class="caret"></span></a>
+                <a id="now_course_info" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @courses.first.id%>:<%= @courses.first.name %>  <span class="caret"></span>  </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <% @courses.each do |cz| %>
+                    <li><a class="course_alternatives" href="#"><%= cz.id %>:<%= cz.name %></a></li>
+                  <% end %>
                 </ul>
               </li>
               <button type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
@@ -62,12 +60,9 @@
         <ul class="nav nav-pills nav-stacked nav-tabs-left col-xs-12 col-md-2">
           <li><a data-toggle="modal" data-target="#insertClass">创建课程</a></li>
           <li><a data-toggle="modal" data-target="#insertStudent">创建学生</a></li>
-          <li><a href="#">信管1班</a></li>
-          <li><a href="#">信管2班</a></li>
-          <li><a href="#">信管3班</a></li>
-          <li><a href="#">信管4班</a></li>
-          <li><a href="#">信管5班</a></li>
-          <li><a href="#">信管6班</a></li>
+          <% @class_units.each do |clz| %>
+            <li class="class_unit_alternatives"><span class="_hide class_unit_id"><%= clz.id %></span><a href="#"><%= clz.name %></a></li>
+          <% end %>
         </ul>
       </div>
       <div class="col-xs-12 col-md-10">
@@ -81,15 +76,13 @@
              </tr>
            </thead>
            <tbody>
-             <tr>
-               <td><a href="/homework/details">阅读书前面30页</a></td>               
-               <td>2016/3/2</td>
-             </tr>
-             <tr>
-               <td><a href="/homework/details">写阅读报告</a></td>               
-               <td>2016/3/5</td>
-             </tr>
-             
+
+              <% @homeworks.each do |hw| %>
+                <tr class="homework_item">
+                  <td><span class="homework_course_id" style="display:none"><%= hw.course_id %></span><a href="/homework/details?homework_id=<%= hw.id %>" class="homework_details"><%= hw.name %></a><span class="homework_id" style="display:none"><%= hw.id %></span></td>               
+                  <td><%= hw.created_at %></td>
+                </tr>
+              <% end %>
              
            </tbody>
          </table>

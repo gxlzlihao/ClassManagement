@@ -16,26 +16,36 @@ ClassUnit.transaction do
     (1..5).each do |i|
         clz = ClassUnit.create(name:"信管#{i}班")
         (1..10).each do |j|
-            Student.create( :name => "student_#{j}", :password => "password_#{j}",
-                :everyday_grade => "#{j}", :class_unit => clz )
+            Student.create( :name => "student_#{j}", :password => "password_#{j}", :class_unit => clz )
         end
     end
 end
 
 Course.transaction do
     Course.all.each do |coz|
+        (1..3).each do |x|
+            AttendanceCheck.create( :target_number => (1000+x), :status => 0, :course => coz )
+        end
+
         ClassUnit.all.each do |clz|
+
+            CourseClassUnit.create( :course => coz, :class_unit => clz )
+
             clz.students.each do |stu|
-                CourseRecord.create( :grade => "93", :course => coz, :student => stu)
-                AttendanceRecord.create( :status => "0", :target_number => "0000", :course => coz, :class_unit => clz, :student => stu)
+                EverydayGrade.create( :student => stu, :course => coz, :class_unit => clz, :grade => 131 )
+                (1..7).each do |i|
+                    # each student in each course has seven course records by default. 
+                    CourseRecord.create( :grade => "-1", :course => coz, :student => stu, :index => i )
+                end
+
+                AttendanceCheck.all.where( :course => coz ).each do |ac|
+                    AttendanceRecord.create( :status => 1, :target_number => "0000", :course => coz, :class_unit => clz, :student => stu, :attendance_check => ac)
+                end
                 coz.homeworks.each do |hw|
                     HomeworkRecord.create( :grade => "70", :status => "1", :address => "homework_address", :student => stu, :homework => hw, :class_unit => clz )
                 end
             end
         end
-    end
-end
 
-(1..3).each do |x|
-    AttendanceCheck.create( :target_number => (1000+x), :status => 0 )
+    end
 end

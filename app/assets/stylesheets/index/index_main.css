@@ -1,3 +1,12 @@
 span._hide.class_unit_id{
     display: none;
 }
+span.everyday_grade{
+    display: block;
+}
+span.everyday_grade._hide{
+    display: none;
+}
+._hide{
+    display: none;
+}

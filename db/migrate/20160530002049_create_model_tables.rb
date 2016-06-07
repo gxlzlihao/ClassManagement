@@ -10,7 +10,6 @@ class CreateModelTables < ActiveRecord::Migration
 
         t.string :name
         t.string :password
-        t.integer :everyday_grade
 
         t.belongs_to :class_unit, foreign_key: true
         t.timestamps null: false
@@ -47,17 +46,6 @@ class CreateModelTables < ActiveRecord::Migration
         t.timestamps null: false
     end
 
-    create_table :attendance_records do |t|
-        t.integer :status
-        t.integer :target_number
-
-        t.belongs_to :student, foreign_key: true
-        t.belongs_to :course, foreign_key: true
-        t.belongs_to :class_unit, foreign_key: true
-
-        t.timestamps null: false
-    end
-
     create_table :homework_records do |t|
 
         t.integer :grade
@@ -74,6 +62,7 @@ class CreateModelTables < ActiveRecord::Migration
     create_table :course_records do |t|
 
         t.integer :grade
+        t.integer :index
         t.belongs_to :student, foreign_key: true
         t.belongs_to :course, foreign_key: true
         t.timestamps null: false
@@ -82,6 +71,27 @@ class CreateModelTables < ActiveRecord::Migration
     create_table :attendance_checks do |t|
         t.integer :target_number
         t.boolean :status
+        t.belongs_to :course, foreign_key: true
+        t.timestamps null: false
+    end
+
+    create_table :everyday_grades do |t|
+        t.integer :grade
+        t.belongs_to :student, foreign_key: true
+        t.belongs_to :course, foreign_key: true
+        t.belongs_to :class_unit, foreign_key: true
+        t.timestamps null: false
+    end
+
+    create_table :attendance_records do |t|
+        t.integer :status
+        t.integer :target_number
+
+        t.belongs_to :student, foreign_key: true
+        t.belongs_to :course, foreign_key: true
+        t.belongs_to :class_unit, foreign_key: true
+        t.belongs_to :attendance_check, foreign_key: true
+
         t.timestamps null: false
     end
 

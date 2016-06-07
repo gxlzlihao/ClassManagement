@@ -1,4 +1,121 @@
+var now_class_unit = null;
+var now_course_id = null;
+var temp_class_id = null;
+
 $(document).ready(function(){
+
+    now_course_id = $('a#now_course_info').text().split(':')[0];
+    
+    $('span.everyday_grade').each(function(){
+            if ( $(this).attr('name') != now_course_id ) {
+                $(this).addClass('_hide');
+            } 
+        });
+
+    $('a.course_alternatives').each(function(){
+        $(this).click(function(){
+            var target_course_id = $(this).text().split(':')[0];
+            if ( target_course_id != now_course_id ) {
+                now_course_id = target_course_id;
+                $('a#now_course_info').text( $(this).text() );
+
+                $('span.everyday_grade').each(function(){
+                    if ( $(this).attr('name') == now_course_id ) {
+                        $(this).removeClass('_hide');
+                    } else {
+                        $(this).addClass('_hide');
+                    }
+                });
+
+            }
+        });
+    });
+
+    $('li.class_unit_alternatives').each(function(){
+        if ( $(this).index() == 2 ) {
+            now_class_unit = $(this).children('span.class_unit_id').text();
+        }
+    });
+
+
+    $('tr.student_record_row td select').each(function(){
+        var _class_unit_id = $(this).siblings('span.class_unit_id').text();
+        var _res_option_index = null;
+        $(this).children('option').each(function(){
+            var _this_class_unit_id = $(this).val().split(':')[0];
+            if ( _this_class_unit_id == _class_unit_id ) {
+                _res_option_index = $(this).index();
+            }
+        });
+        $(this).val( $(this).children('option:eq(' + _res_option_index + ')').val() );
+
+        if ( _class_unit_id != now_class_unit ) {
+            $(this).parent().parent().toggleClass('_hide');
+        }
+    });
+
+    $('tr.student_record_row td select').change(function(){
+
+        // when the user changes the class_unit of one student
+        var currentClassUnitId = $(this).siblings('span.class_unit_id').text();
+        var selectedText = $(this).find("option:selected").text();
+        var selectedClassUnitId = selectedText.split(':')[0];
+        var temp_class_id = $(this).parent().prev().text();
+
+        if ( currentClassUnitId != selectedClassUnitId ) {
+            var currentStudentId = $(this).parent().prev().text();
+
+            var _data = new Object();
+            _data.student_id = currentStudentId;
+            _data.class_unit_id = selectedClassUnitId;
+
+            $.ajax({
+                    type: 'POST',
+                    url: '/index/update_student' ,
+                    data: _data ,
+                    complete: function( obj ){ 
+
+                        console.log( obj ); 
+                        var _answer = obj.responseText;
+                        var _result = JSON.parse( _answer ).result;
+
+                        if ( _result == 'ok' ) {
+                            console.log( "changing succeeds" );
+
+                            if ( selectedClassUnitId != now_class_unit ) {
+                                $('tr.student_record_row td select').each(function(){
+                                    if ( $(this).parent().prev().text() == temp_class_id ) {
+                                        $(this).siblings('span.class_unit_id').text( selectedClassUnitId );
+                                        $(this).parent().parent().addClass('_hide');
+                                    }
+                                });
+                        
+                            }
+                        } else if ( _result == 'not_found' ) {
+                            console.log( "changing fails" );
+                            alert( "The database operation fails!" );
+                        }
+
+                    } ,
+                    dataType: 'json'
+            });
+        }
+
+    });
+
+    $('li.class_unit_alternatives').children('a').click(function(){
+        var _target_class_unit = $(this).siblings('span.class_unit_id').text();
+        $('tr.student_record_row td select').each(function(){
+            var _current_class_unit = $(this).siblings('span.class_unit_id').text();
+
+            if ( _current_class_unit == _target_class_unit ) {
+                $(this).parent().parent().removeClass('_hide');
+            } else {
+                $(this).parent().parent().addClass('_hide');
+            }
+        });
+        now_class_unit = _target_class_unit;
+    });
 
     $('div#inputStudentClassUnit label').children('input:checkbox').click(function(){
         $(this).parent().siblings('label').children('input:checkbox').prop('checked', false)
