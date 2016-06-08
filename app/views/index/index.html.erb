@@ -29,11 +29,11 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">学生</a></li>
-              <li><a href="/index/homework">作业</a></li>
-              <li><a href="/index/document">资料</a></li>
-              <li><a href="/index/everyday_grade">平时成绩</a></li>
-              <li><a href="/index/attendance">考勤</a></li>
+              <li class="active"><a id="navbar_homepage_link" href="">学生</a></li>
+              <li><a id="navbar_homework_link" href="">作业</a></li>
+              <li><a id="navbar_document_link" href="">资料</a></li>
+              <li><a id="navbar_everyday_grade_link" href="">平时成绩</a></li>
+              <li><a id="navbar_attendance_link" href="">考勤</a></li>
 
               <li class="dropdown">
                 <a id="now_course_info" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @courses.first.id%>:<%= @courses.first.name %>  <span class="caret"></span>  </a>
@@ -43,7 +43,7 @@
                   <% end %>
                 </ul>
               </li>
-              <button type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
+              <button id="btnClearUserData" type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
             </ul>
 
           </div><!--/.nav-collapse -->

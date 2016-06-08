@@ -3,9 +3,17 @@ class ClientIndexController < ApplicationController
     skip_before_filter  :verify_authenticity_token
 
     def course_browser
+        student_id = session[:student_id]
+        class_unit_id = Student.find( student_id ).class_unit_id
+        @courses = CourseClassUnit.where( :class_unit_id => class_unit_id )
     end
 
     def client_homepage
+        all_courses = Course.all
+        course_id = params[:course_id]
+        if course_id == nil
+            course_id = all_courses.first.id
+        end
     end
 
     def everyday_grade
@@ -22,6 +30,7 @@ class ClientIndexController < ApplicationController
             res = '{"result":"not_found"}'
         else
             res = '{"result":"ok"}'
+            session[:student_id] = params[:client_id]
         end
 
         respond_to do |format|

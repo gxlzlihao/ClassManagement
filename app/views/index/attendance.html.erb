@@ -29,11 +29,11 @@
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="/index">学生</a></li>
-              <li><a href="/index/homework">作业</a></li>
-              <li><a href="/index/document">资料</a></li>
-              <li><a href="/index/everyday_grade">平时成绩</a></li>
-              <li class="active"><a href="/index/attendance">考勤</a></li>
+              <li><a id="navbar_homepage_link" href="">学生</a></li>
+              <li><a id="navbar_homework_link" href="">作业</a></li>
+              <li><a id="navbar_document_link" href="">资料</a></li>
+              <li><a id="navbar_everyday_grade_link" href="">平时成绩</a></li>
+              <li class="active"><a id="navbar_attendance_link" href="">考勤</a></li>
               
               <li class="dropdown">
                 <a id="now_course_info" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @courses.first.id%>:<%= @courses.first.name %>  <span class="caret"></span>  </a>
@@ -43,7 +43,7 @@
                   <% end %>
                 </ul>
               </li>
-              <button type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
+              <button id="btnClearUserData" type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
             </ul>
       
           </div><!--/.nav-collapse -->
@@ -170,7 +170,7 @@
      <div class="modal-dialog">
         <div class="modal-content">
            <div class="modal-header">
-              <button type="button" class="close" 
+              <button type="button" class="close"
                  data-dismiss="modal" aria-hidden="true">
                     &times;
               </button>
@@ -181,50 +181,44 @@
            <div class="modal-body">
               <form class="form-horizontal">
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
+                  <label for="inputStudentName" class="col-sm-2 control-label">姓名</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" >
+                    <input type="text" class="form-control" id="inputStudentName" >
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-2 control-label">学号</label>
+                  <label for="inputStudentId" class="col-sm-2 control-label">学号</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputPassword3" >
+                    <input type="text" class="form-control" id="inputStudentId" >
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">班级: </label>
+                  <label for="inputStudentPassword" class="col-sm-2 control-label">登录密码</label>
+                  <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputStudentPassword" >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputStudentName" class="col-sm-2 control-label">班级: </label>
                   <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管1班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管2班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管3班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管4班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管5班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管6班
-                      </label>
+                    <div id="inputStudentClassUnit" class="checkbox">
+                      <% @class_units.each do |clz| %>
+                        <label class=" col-sm-4">
+                          <span class="_hide class_unit_id"><%= clz.id %></span>
+                          <input type="checkbox"><%= clz.name %>
+                        </label>
+                      <% end %>
                     </div>
                   </div>
                 </div>
               </form>
            </div>
            <div class="modal-footer">
-              <button type="button" class="btn btn-default" 
+              <button type="button" class="btn btn-default"
                  data-dismiss="modal">关闭
               </button>
-              <button type="button" class="btn btn-primary">
-                 提交更改
+              <button id="submit_create_student" type="button" class="btn btn-primary">
+                 提交创建
               </button>
            </div>
         </div><!-- /.modal-content -->
@@ -236,7 +230,7 @@
      <div class="modal-dialog">
         <div class="modal-content">
            <div class="modal-header">
-              <button type="button" class="close" 
+              <button type="button" class="close"
                  data-dismiss="modal" aria-hidden="true">
                     &times;
               </button>
@@ -247,44 +241,32 @@
            <div class="modal-body">
               <form class="form-horizontal">
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">课程名字: </label>
+                  <label for="inputCourseName" class="col-sm-2 control-label">课程名字: </label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputEmail3" >
+                    <input type="text" class="form-control" id="inputCourseName" >
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">上课学生: </label>
+                  <label for="inputCourseName" class="col-sm-2 control-label">上课班级: </label>
                   <div class="col-sm-offset-2 col-sm-10">
-                    <div class="checkbox">
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管1班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管2班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管3班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管4班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管5班
-                      </label>
-                      <label class=" col-sm-4">
-                        <input type="checkbox">信管6班
-                      </label>
+                    <div id="inputCourseClassUnit" class="checkbox">
+                      <% @class_units.each do |clz| %>
+                        <label class=" col-sm-4">
+                          <span class="_hide class_unit_id"><%= clz.id %></span>
+                          <input type="checkbox"><%= clz.name %>
+                        </label>
+                      <% end %>
                     </div>
                   </div>
                 </div>
               </form>
            </div>
            <div class="modal-footer">
-              <button type="button" class="btn btn-default" 
+              <button type="button" class="btn btn-default"
                  data-dismiss="modal">关闭
               </button>
-              <button type="button" class="btn btn-primary">
-                 提交更改
+              <button id="submit_create_course" type="button" class="btn btn-primary">
+                 提交创建
               </button>
            </div>
         </div><!-- /.modal-content -->

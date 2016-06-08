@@ -15,12 +15,21 @@ class AttendancedetailsController < ApplicationController
         _new_check.course_id = _course_id
         _new_check.status = 1
 
-        c = CourseClassUnit.all.where( :course_id => _course_id )
-        c.each do |cs|
-            puts "the name of the class unit -- " + cs.class_unit.name
-        end
-
         if _new_check.save
+
+            c = CourseClassUnit.all.where( :course_id => _course_id )
+            c.each do |cs|
+                cs.class_unit.students do |stu|
+                    _new_attendance_record = AttendanceRecord.new
+                    _new_attendance_record.target_number = _target_number
+                    _new_attendance_record.status = 1
+                    _new_attendance_record.student = stu
+                    _new_attendance_record.class_unit = cs.class_unit
+                    _new_attendance_record.attendance_check = _new_check
+                    _new_attendance_record.save
+                end
+            end
+
             res = '{"result":"ok", "new_check_id":' + _new_check.id.to_s + '}'
         else
             res = '{"result":"error"}'

@@ -28,12 +28,26 @@ class IndexController < ApplicationController
         @courses = Course.all
         @attendance_records = AttendanceRecord.all
 
-        @startup_everyday_grades = EverydayGrade.all.where( :course_id => @courses.first.id, :class_unit_id => @class_units.first.id )
+        if params[:course_id] != nil
+            @target_course_id = params[:course_id]
+            @target_course_name = Course.find( params[:course_id] ).name
+        else
+            @target_course_id = @courses.first.id
+            @target_course_name = @courses.first.name
+        end
+
+        if params[:class_unit_id] != nil
+            target_class_unit_id = params[:class_unit_id]
+        else
+            target_class_unit_id = @class_units.first.id
+        end
+
+        @startup_everyday_grades = EverydayGrade.all.where( :course_id => @target_course_id, :class_unit_id => target_class_unit_id )
         @startup_attendance_records = nil
         @startup_course_records = nil
 
         @startup_everyday_grades.each do |eg|
-            temp1 = @students.find_by_id( eg.student_id ).attendance_records.where( :course_id => @courses.first.id, :class_unit_id => @class_units.first.id )
+            temp1 = @students.find_by_id( eg.student_id ).attendance_records.where( :course_id => @target_course_id, :class_unit_id => target_class_unit_id )
             if @startup_attendance_records != nil 
                 @startup_attendance_records.concat( temp1 )
             else 

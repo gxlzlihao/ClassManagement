@@ -4,6 +4,52 @@ var temp_class_id = null;
 
 $(document).ready(function(){
 
+    $('button#btnClearUserData').click(function(){
+
+        $.ajax({
+                    type: 'POST',
+                    url: '/index/clear_user_data' ,
+                    complete: function( obj ){ 
+
+                        console.log( obj ); 
+                        var _answer = obj.responseText;
+                        var _result = JSON.parse( _answer ).result;
+
+                        if ( _result == 'ok' ) {
+                            console.log( "user data clearing succeeds" );
+                        } else if ( _result == 'error' ) {
+                            console.log( "user data clearing fails" );
+                        }
+
+                    } ,
+                    dataType: 'json'
+            });
+
+    });
+
+    ss = window.location.href.split('/');
+    var base_url = ss[0] + '/' + ss[1] + '/' + ss[2] + '/';
+
+    $('a#navbar_homepage_link').click(function(){
+        window.location.href = base_url + 'index';
+    });
+
+    $('a#navbar_homework_link').click(function(){
+        window.location.href = base_url + 'index/homework';
+    });
+
+    $('a#navbar_document_link').click(function(){
+        window.location.href = base_url + "index/document";
+    });
+
+    $('a#navbar_everyday_grade_link').click(function(){
+        window.location.href = base_url + "index/everyday_grade";
+    });
+
+    $('a#navbar_attendance_link').click(function(){
+        window.location.href = base_url + "index/attendance";
+    });
+
     now_course_id = $('a#now_course_info').text().split(':')[0];
     
     $('span.everyday_grade').each(function(){
