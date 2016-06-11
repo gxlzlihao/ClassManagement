@@ -34,6 +34,7 @@ class CreateModelTables < ActiveRecord::Migration
 
     create_table :homeworks do |t|
         t.string :name
+        t.boolean :status, default: false
         t.datetime :deadline
         t.timestamps null: false
         t.belongs_to :course, index: true
@@ -42,6 +43,7 @@ class CreateModelTables < ActiveRecord::Migration
     create_table :documents do |t|
         t.string :name
         t.string :address
+        t.string :description
         t.belongs_to :course, foreign_key: true
         t.timestamps null: false
     end
@@ -49,7 +51,7 @@ class CreateModelTables < ActiveRecord::Migration
     create_table :homework_records do |t|
 
         t.integer :grade
-        t.boolean :status, default: 0
+        t.boolean :status, default: false
         t.string :address, default: nil
 
         t.belongs_to :student, foreign_key: true

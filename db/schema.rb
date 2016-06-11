@@ -75,11 +75,12 @@ ActiveRecord::Schema.define(version: 20160530002049) do
   add_index "courses", ["teacher_id"], name: "index_courses_on_teacher_id", using: :btree
 
   create_table "documents", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "address",    limit: 255
-    t.integer  "course_id",  limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name",        limit: 255
+    t.string   "address",     limit: 255
+    t.string   "description", limit: 255
+    t.integer  "course_id",   limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "documents", ["course_id"], name: "fk_rails_4248d91278", using: :btree
@@ -114,9 +115,10 @@ ActiveRecord::Schema.define(version: 20160530002049) do
 
   create_table "homeworks", force: :cascade do |t|
     t.string   "name",       limit: 255
+    t.boolean  "status",                 default: false
     t.datetime "deadline"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "course_id",  limit: 4
   end
 

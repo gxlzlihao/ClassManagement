@@ -11,15 +11,26 @@ class ClientIndexController < ApplicationController
     def client_homepage
         all_courses = Course.all
         course_id = params[:course_id]
+        session[:course_id] = params[:course_id]
         if course_id == nil
             course_id = all_courses.first.id
         end
+        @course = Course.find( course_id )
+        @unfinished_homeworks = @course.homeworks.where( :status => false )
+        @finished_homeworks = @course.homeworks.where( :status => true )
+
+        @documents = @course.documents
+        class_unit_id = Student.find( session[:student_id] ).class_unit_id
+        @class_mates = ClassUnit.find( class_unit_id ).students
     end
 
     def everyday_grade
+        @attendance_checks = AttendanceCheck.all.where( :course_id => session[:course_id] ).order("created_at DESC")
+        @attendance_records = AttendanceRecord.all.where( :student_id => session[:student_id], :course_id => session[:course_id] )
     end
 
     def course_signin
+        session[:attendance_check_id] = params[:id]
     end
 
     def client_signin
@@ -40,18 +51,21 @@ class ClientIndexController < ApplicationController
 
     def verify_signin
 
-        @correct_number = AttendanceCheck.where( status: 0 )
+        @ac = AttendanceCheck.where( status: 1 ).order("created_at DESC")
 
-        if @correct_number == nil
+        if @ac == nil
             res = '{"result":"check_not_start"}'
         else
-            @correct_number = @correct_number.sort_by &:created_at
-            @correct_number = @correct_number.first
+            @ac = @ac.first
 
-            puts @correct_number.target_number
+            puts @ac.target_number
             puts params[:input_number].to_i
 
-            if params[:input_number].to_i == @correct_number.target_number
+            if params[:input_number].to_i == @ac.target_number
+                puts @ac.id.to_s + " -- " + session[:student_id].to_s
+                aa = AttendanceRecord.where( :attendance_check_id => @ac.id, :student_id => session[:student_id] ).first
+                aa.status = 4
+                aa.save
                 res = '{"result":"ok"}'
             else
                 res = '{"result":"error"}'

@@ -65,41 +65,30 @@
                 <div id="no_homework_reminds" class="row col-xs-12 text-left">
                     <h4>此课程没有任何作业</h4>
                 </div>
-                <div class="homework_sector row col-xs-12 text-center">
-                    <div class="row col-xs-12">
-                        <div class="col-xs-8 text-left"><h8>发布时间：1月22日</h8></div>
-                        <div class="col-xs-4" style="color:green"><h8>已经提交</h8></div>
+                <% @finished_homeworks.each do |hw| %>
+                    <div class="homework_sector row col-xs-12 text-center">
+                        <div class="row col-xs-12">
+                            <div class="col-xs-8 text-left"><h8>发布时间：<%= hw.created_at %></h8></div>
+                            <div class="col-xs-4" style="color:green"><h8>已经提交</h8></div>
+                        </div>
+                        <div class="row col-xs-12 text-left">
+                            <h3><%= hw.name %></h3>
+                        </div>
+                        <div class="row col-xs-12">
+                            <div class="col-xs-8 text-left"><h8 style="color:red" class="homework_deadline">截止日期：<%= hw.deadline %></h8></div>
+                            <div class="col-xs-4"><button type="button" class="btn btn-primary" style="margin:7px">查看作业</button></div>
+                        </div>
                     </div>
-                    <div class="row col-xs-12 text-left">
-                        <h3>作业名称一</h3>
-                    </div>
-                    <div class="row col-xs-12">
-                        <div class="col-xs-8 text-left"><h8 style="color:red" class="homework_deadline">截止日期：1月25日</h8></div>
-                        <div class="col-xs-4"><button type="button" class="btn btn-primary" style="margin:7px">查看作业</button></div>
-                    </div>
-                </div>
-                <div class="homework_sector row col-xs-12 text-center">
-                    <div class="row col-xs-12">
-                        <div class="col-xs-8 text-left"><h8>发布时间：1月22日</h8></div>
-                        <div class="col-xs-4" style="color:green"><h8>已经提交</h8></div>
-                    </div>
-                    <div class="row col-xs-12 text-left">
-                        <h3>作业名称二</h3>
-                    </div>
-                    <div class="row col-xs-12">
-                        <div class="col-xs-8 text-left"><h8 style="color:red" class="homework_deadline">截止日期：1月25日</h8></div>
-                        <div class="col-xs-4"><button type="button" class="btn btn-primary" style="margin:7px">查看作业</button></div>
-                    </div>
-                </div>
+                <% end %>
             </div>
             <div id="fragment_homework_details" class="col-xs-12">
                 <div id="homework_description" class="col-xs-12">
                     <div class="row">
                         <div class="col-xs-6 text-left">
-                            <h4>作业标题一</h4>
+                            <h4><%= @unfinished_homeworks.first.name %></h4>
                         </div>
                         <div class="col-xs-6 text-center">
-                            <h5 style="color:red">截止时间：1月31日</h5>
+                            <h5 style="color:red">截止时间：<%= @unfinished_homeworks.first.deadline %></h5>
                         </div>
                     </div>
                     <div class="row col-xs-12" style="margin: 5px 0;border: 1px solid black">
@@ -128,7 +117,15 @@
                     </div>
                     <div id="past_list">
                         <ul class="list-group">
-                              <li class="list-group-item">
+                                <% @finished_homeworks.each do |hw| %>
+                                    <li class="list-group-item">
+                                        <%= image_tag "common/pdf_icon.png", alt: "common/pdf_icon.png", class: "thumbnail_image" %>
+                                        <div>
+                                            <h6><%= hw.name %></h6>
+                                        </div>
+                                      </li>
+                                <% end %>
+                              <!-- <li class="list-group-item">
                                 <%= image_tag "common/pdf_icon.png", alt: "common/pdf_icon.png", class: "thumbnail_image" %>
                                 <div>
                                     <h6>文件名字一</h6>
@@ -157,7 +154,7 @@
                                 <div>
                                     <h6>文件名字五</h6>
                                 </div>
-                              </li>
+                              </li> -->
                         </ul>
                     </div>
                 </div>
@@ -166,36 +163,26 @@
         <div id="main_documents">
             <div id="fragment_document_list" class="col-xs-12">
                 <ul class="list-group">
-                      <li class="list-group-item">
-                        <%= image_tag "common/pdf_icon.png", alt: "common/pdf_icon.png" %>
-                        <div>
-                            <h6>文件名字一</h6>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <%= image_tag "common/word_icon.png", alt: "common/word_icon.png" %>
-                        <div>
-                            <h6>文件名字二</h6>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <%= image_tag "common/zip_icon.png", alt: "common/zip_icon.png" %>
-                        <div>
-                            <h6>文件名字三</h6>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <%= image_tag "common/excel_icon.png", alt: "common/excel_icon.png" %>
-                        <div>
-                            <h6>文件名字四</h6>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <%= image_tag "common/powerpoint_icon.png", alt: "common/powerpoint_icon.png" %>
-                        <div>
-                            <h6>文件名字五</h6>
-                        </div>
-                      </li>
+                        <% @documents.each do |doc| %>
+                            <li class="list-group-item document_item">
+                                <% if doc.address.index('.pdf') != nil %>
+                                    <%= image_tag "common/pdf_icon.png", alt: "common/pdf_icon.png" %>
+                                <% elsif doc.address.index('.word') != nil %>
+                                    <%= image_tag "common/word_icon.png", alt: "common/word_icon.png" %>
+                                <% elsif doc.address.index('.powerpoint') != nil %>
+                                    <%= image_tag "common/powerpoint_icon.png", alt: "common/powerpoint_icon.png" %>
+                                <% elsif doc.address.index('.excel') != nil %>
+                                    <%= image_tag "common/excel_icon.png", alt: "common/excel_icon.png" %>
+                                <% else doc.address.index('.zip') != nil %>
+                                    <%= image_tag "common/zip_icon.png", alt: "common/zip_icon.png" %>
+                                <% end %>
+                                <div>
+                                    <h6><%= doc.name %></h6>
+                                    <p style="display:none"><%= doc.description %></p>
+                                    <h4 style="display:none"><%= doc.id %></h4>
+                                </div>
+                              </li>
+                        <% end %>
                 </ul>
             </div>
             <div id="fragment_document_details" class="col-xs-12">
@@ -203,7 +190,8 @@
                     <%= image_tag "common/powerpoint_icon.png", alt: "common/powerpoint_icon.png" %>
                     <h4>文件名字一</h4>
                     <p></p>
-                    <button type="button" class="btn btn-primary" style="margin:10px">下载资料</button>
+                    <h5 class="document_item_id" style="display:none"></h5>
+                    <button id="btnDownloadDocument" type="button" class="btn btn-primary" style="margin:10px">下载资料</button>
                 </div>
             </div>
         </div>
@@ -223,18 +211,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>测试人员</td>
-                                <td>231241</td>
-                            </tr>
-                            <tr>
-                                <td>测试人员</td>
-                                <td>231241</td>
-                            </tr>
-                            <tr>
-                                <td>测试人员</td>
-                                <td>231241</td>
-                            </tr>
+                            <% @class_mates.each do |cm| %>
+                                <tr>
+                                    <td><%= cm.name %></td>
+                                    <td><%= cm.id %></td>
+                                </tr>
+                            <% end %>
                         </tbody>
                     </table>
                 </div>

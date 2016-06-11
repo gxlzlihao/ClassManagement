@@ -5,10 +5,11 @@ tec = Teacher.create( :name => "admin", :password => "admin")
 Course.transaction do
     (1..5).each do |i|
         cos = Course.create( :name => "课程#{i}", :teacher => tec)
-        (1..4).each do |j|
-            Document.create( :name => "辅助资料#{j}", :address => "address_#{j}", :course => cos )
-            Homework.create( :name => "课程作业#{j}", :deadline => DateTime.tomorrow, :course => cos )
+        (1..3).each do |j|
+            Document.create( :name => "辅助资料#{j}", :address => "address_#{j}", :course => cos, :description => "文件描述_#{j}" )
+            Homework.create( :name => "课程作业#{j}", :deadline => DateTime.tomorrow, :course => cos, :status => true )
         end
+        Homework.create( :name => "课程作业4", :deadline => DateTime.tomorrow, :course => cos, :status => false )
     end
 end
 

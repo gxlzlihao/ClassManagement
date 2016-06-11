@@ -60,74 +60,43 @@
         <div id="main_attendance" style="margin-bottom:10px">
             <div class="col-xs-12">
                 <div class="col-xs-3 text-center">
-                    <h1>2</h1>
+                    <h1><%= @attendance_records.where( :status => 4).count() %></h1>
                     <h4>出勤</h4>
                 </div>
                 <div class="col-xs-3 text-center">
-                    <h1>2</h1>
+                    <h1><%= @attendance_records.where( :status => 2).count() %></h1>
                     <h4>迟到</h4>
                 </div>
                 <div class="col-xs-3 text-center">
-                    <h1>2</h1>
+                    <h1><%= @attendance_records.where( :status => 1).count() %></h1>
                     <h4>旷课</h4>
                 </div>
                 <div class="col-xs-3 text-center">
-                    <h1>2</h1>
+                    <h1><%= @attendance_records.where( :status => 3).count() %></h1>
                     <h4>请假</h4>
                 </div>
             </div>
             <div class="col-xs-12">
                 <ul class="list-group">
-                      <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <h4>签到时间：1月12日</h4>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type="button" class="btn btn-primary" >签到</button>
-                            </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <h4>签到时间：1月12日</h4>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type="button" class="btn btn-primary" >签到</button>
-                            </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <h4>签到时间：1月12日</h4>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type="button" class="btn btn-primary" >签到</button>
-                            </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <h4>签到时间：1月12日</h4>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type="button" class="btn btn-primary" >签到</button>
-                            </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                            <div class="col-xs-8">
-                                <h4>签到时间：1月12日</h4>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type="button" class="btn btn-primary" >签到</button>
-                            </div>
-                        </div>
-                      </li>
+                        <% @attendance_checks.each do |ac| %>
+
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-xs-8">
+                                        <h4>签到时间：<%= ac.created_at %></h4>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <% if ac.status == true %>
+                                            <span style="display:none"><%= ac.id %></span>
+                                            <button type="button" class="btn btn-primary btnEnterSignIn" >签到</button>
+                                        <% else %>
+                                            <h5 style="color:green">已经签到</h5>
+                                        <% end %>
+                                    </div>
+                                </div>
+                              </li>
+
+                        <% end %>
                 </ul>
             </div>
         </div>
