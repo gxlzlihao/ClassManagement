@@ -79,10 +79,10 @@
               <span>应到： </span><span id="should_arrive_result"><%= @attendance_records.count() %></span>
           </div>
           <div class="col-md-4">
-              <span>实到： </span><span id="real_arrive_result"><%= @attendance_records.where( :status => 1 ).count() %></span>
+              <span>实到： </span><span id="real_arrive_result"><%= @attendance_records.where( :status => 4 ).count() %></span>
           </div>
           <div class="col-md-4">
-              <span>缺勤： </span><span id="absence_result"><%= @attendance_records.where( :status => 2 ).count() %></span>
+              <span>缺勤： </span><span id="absence_result"><%= @attendance_records.count() - @attendance_records.where( :status => 4 ).count() %></span>
           </div>
         </div>
 
