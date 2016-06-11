@@ -4,6 +4,8 @@ class AttendancedetailsController < ApplicationController
 
     def index
         @attendance_records = AttendanceRecord.all.where( :attendance_check_id => params[:check_id] )
+        @class_units = ClassUnit.all
+        @courses = Course.all
     end
 
     def create_new_attendance_check
