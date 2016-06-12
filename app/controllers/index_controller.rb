@@ -3,6 +3,24 @@ class IndexController < ApplicationController
     skip_before_filter  :verify_authenticity_token
 
     def index
+    end
+
+    def teacher_signin
+        _rs = Teacher.where( :name => params[:teacher_name], :password => params[:teacher_password] )
+
+        if _rs != nil
+            session[:teacher_id] = _rs.first.id
+            res = '{"result":"ok"}'
+        else
+            res = '{"result":"error"}'
+        end
+
+        respond_to do |format|
+            format.json { render json: res, status: "200" }
+        end
+    end
+
+    def homepage
         @class_units = ClassUnit.all
         @students = Student.all
         @courses = Course.all
@@ -136,8 +154,7 @@ class IndexController < ApplicationController
         @course = Course.new
         @course.name = params[:course_name]
 
-        @teacher = Teacher.all.first
-        @course.teacher = @teacher
+        @course.teacher = Teacher.find( session[:teacher_id] )
 
         if @course.save
 

@@ -2,11 +2,13 @@ Rails.application.routes.draw do
 
     get '/' => 'index#index'
     get '/index' => 'index#index'
+    get '/index/homepage' => 'index#homepage'
     get '/index/homework' => 'index#homework' 
     get '/index/document' => 'index#document'
     get '/index/everyday_grade' => 'index#everyday_grade'
     get '/index/attendance' => 'index#attendance' 
 
+    post '/index/teacher_signin' => 'index#teacher_signin'
     post '/index/create_course' => 'index#create_course'
     post '/index/create_student' => 'index#create_student'
     post '/index/update_student' => 'index#update_student'

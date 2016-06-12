@@ -3,7 +3,7 @@ $(document).ready(function(){
     var base_url = ss[0] + '/' + ss[1] + '/' + ss[2] + '/';
 
     $('a#navbar_homepage_link').click(function(){
-        window.location.href = base_url + 'index';
+        window.location.href = base_url + 'index/homepage';
     });
 
     $('a#navbar_homework_link').click(function(){

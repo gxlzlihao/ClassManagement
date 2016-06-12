@@ -1,216 +1,36 @@
+<% content_for :stylesheets do %>
+    <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
+    <%= stylesheet_link_tag 'common/navbar' %>
+    <%= stylesheet_link_tag 'index/index' %>
+<% end %>
 
-    <% content_for :stylesheets do %>
-        <%= stylesheet_link_tag 'common/bootstrap/bootstrap' %>
-        <%= stylesheet_link_tag 'common/navbar' %>
-        <%= stylesheet_link_tag 'index/index_main' %>
-    <% end %>
+<% content_for :javascripts do %>
+    <%= javascript_include_tag 'common/ie-emulation-modes-warning' %>
+    <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
+    <%= javascript_include_tag 'common/jquery/jquery' %>
+    <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
+    <%= javascript_include_tag 'index/index' %>
+<% end %>
 
-    <% content_for :javascripts do %>
-        <%= javascript_include_tag 'common/ie-emulation-modes-warning' %>
-        <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
-        <%= javascript_include_tag 'common/jquery/jquery' %>
-        <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
-        <%= javascript_include_tag 'index/index_main' %>
-    <% end %>
-
-    <div class="container">
-
-      <!-- Static navbar -->
-      <nav class="navbar navbar-default" style="z-index:100">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">教师管理系统</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a id="navbar_homepage_link" href="">学生</a></li>
-              <li><a id="navbar_homework_link" href="">作业</a></li>
-              <li><a id="navbar_document_link" href="">资料</a></li>
-              <li><a id="navbar_everyday_grade_link" href="">平时成绩</a></li>
-              <li><a id="navbar_attendance_link" href="">考勤</a></li>
-
-              <li class="dropdown">
-                <a id="now_course_info" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @courses.first.id%>:<%= @courses.first.name %>  <span class="caret"></span>  </a>
-                <ul class="dropdown-menu">
-                  <% @courses.each do |cz| %>
-                    <li><a class="course_alternatives" href="#"><%= cz.id %>:<%= cz.name %></a></li>
-                  <% end %>
-                </ul>
-              </li>
-              <button id="btnClearUserData" type="button" class="btn btn-danger" style="margin:7px">清空用户信息</button>
-            </ul>
-
-          </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
-      </nav>
-      <!-- Main component for a primary marketing message or call to action -->
-      <div class="">
-        <style>
-          .nav-tabs.nav-tabs-left {
-            border-bottom-color: transparent;
-            padding: 10px;
+<div class="container">
+    <div class="row col-md-12">
+        <div class="col-md-2 col-md-offset-2" style="padding:0"><h4> 教师名称 </h4></div>
+        <div class="col-md-6">
+            <input type="text" class="form-control col-md-12" id="input_teacher_name" placeholder="">
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <div class="col-md-2 col-md-offset-2" style="padding:0"><h4> 密码 </h4></div>
+        <div class="col-md-6">
+            <input type="password" class="form-control col-md-12" id="input_teacher_password" placeholder="">
+        </div>
+    </div>
+    <div class="row col-md-12 text-center">
+        <button id="submit_teacher_signin" type="button" class="btn btn-primary" style="margin:20px">  登录  </button>
+    </div>
+    <style>
+        div.container div.row.col-md-12:first-child {
+            margin-top: 100px;
         }
-        </style>
-        <ul class="nav nav-pills nav-stacked nav-tabs-left col-xs-12 col-md-2">
-          <li><a data-toggle="modal" data-target="#insertClass">创建课程</a></li>
-          <li><a data-toggle="modal" data-target="#insertStudent">创建学生</a></li>
-          <% @class_units.each do |clz| %>
-            <li class="class_unit_alternatives"><span class="_hide class_unit_id"><%= clz.id %></span><a href="#"><%= clz.name %></a></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="col-xs-12 col-md-10">
-
-        <table class="table table-striped table-bordered">
-           <thead>
-             <tr>
-               <th>姓名</th>
-               <th>学号</th>
-               <th>班级</th>
-               <th>平时成绩</th>
-             </tr>
-           </thead>
-           <tbody>
-
-              <% @students.each do |stu| %>
-                <tr class="student_record_row">
-                  <td><%= stu.name %></td>
-                  <td><%= stu.id %></td>
-                  <td>
-                      <span class="_hide class_unit_id" style="display: none"><%= stu.class_unit_id %></span>
-                      <select class="form-control">
-                        <% @class_units.each do |clz| %>
-                          <option><span class="_hide class_unit_id" style="display: none"><%= clz.id %>:</span><%= clz.name %></option>
-                        <% end %>
-                      </select>
-                  </td>
-                  <td>
-                    <% stu.everyday_grades.each do |grades| %>
-                      <span class="everyday_grade" name=<%= grades.course.id %>> <%= grades.grade %> </span>
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-
-           </tbody>
-         </table>
-      </div>
-
-
-
-<div class="modal fade" id="insertStudent" tabindex="-1" role="dialog" aria-labelledby="insertStudentLabel" aria-hidden="true">
-     <div class="modal-dialog">
-        <div class="modal-content">
-           <div class="modal-header">
-              <button type="button" class="close"
-                 data-dismiss="modal" aria-hidden="true">
-                    &times;
-              </button>
-              <h4 class="modal-title" id="insertStudentLabel">
-                 创建学生
-              </h4>
-           </div>
-           <div class="modal-body">
-              <form class="form-horizontal">
-                <div class="form-group">
-                  <label for="inputStudentName" class="col-sm-2 control-label">姓名</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputStudentName" >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputStudentId" class="col-sm-2 control-label">学号</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputStudentId" >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputStudentPassword" class="col-sm-2 control-label">登录密码</label>
-                  <div class="col-sm-10">
-                    <input type="password" class="form-control" id="inputStudentPassword" >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputStudentName" class="col-sm-2 control-label">班级: </label>
-                  <div class="col-sm-offset-2 col-sm-10">
-                    <div id="inputStudentClassUnit" class="checkbox">
-                      <% @class_units.each do |clz| %>
-                        <label class=" col-sm-4">
-                          <span class="_hide class_unit_id"><%= clz.id %></span>
-                          <input type="checkbox"><%= clz.name %>
-                        </label>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </form>
-           </div>
-           <div class="modal-footer">
-              <button type="button" class="btn btn-default"
-                 data-dismiss="modal">关闭
-              </button>
-              <button id="submit_create_student" type="button" class="btn btn-primary">
-                 提交创建
-              </button>
-           </div>
-        </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-
+    </style>
 </div>
-
-<div class="modal fade" id="insertClass" tabindex="-1" role="dialog" aria-labelledby="insertClassLabel" aria-hidden="true">
-     <div class="modal-dialog">
-        <div class="modal-content">
-           <div class="modal-header">
-              <button type="button" class="close"
-                 data-dismiss="modal" aria-hidden="true">
-                    &times;
-              </button>
-              <h4 class="modal-title" id="insertClassLabel">
-                 创建课程
-              </h4>
-           </div>
-           <div class="modal-body">
-              <form class="form-horizontal">
-                <div class="form-group">
-                  <label for="inputCourseName" class="col-sm-2 control-label">课程名字: </label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputCourseName" >
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputCourseName" class="col-sm-2 control-label">上课班级: </label>
-                  <div class="col-sm-offset-2 col-sm-10">
-                    <div id="inputCourseClassUnit" class="checkbox">
-                      <% @class_units.each do |clz| %>
-                        <label class=" col-sm-4">
-                          <span class="_hide class_unit_id"><%= clz.id %></span>
-                          <input type="checkbox"><%= clz.name %>
-                        </label>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </form>
-           </div>
-           <div class="modal-footer">
-              <button type="button" class="btn btn-default"
-                 data-dismiss="modal">关闭
-              </button>
-              <button id="submit_create_course" type="button" class="btn btn-primary">
-                 提交创建
-              </button>
-           </div>
-        </div><!-- /.modal-content -->
-  </div><!-- /.modal -->
-
-</div>
-
-    </div> <!-- /container -->
-
