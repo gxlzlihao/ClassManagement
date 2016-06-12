@@ -90,7 +90,6 @@
                         <% end %>
                       </select>
                   </td>
-                  <!-- <td><%= stu.everyday_grades.first.grade %></td> -->
                   <td>
                     <% stu.everyday_grades.each do |grades| %>
                       <span class="everyday_grade" name=<%= grades.course.id %>> <%= grades.grade %> </span>
