@@ -77,11 +77,13 @@ $(document).ready(function(){
         });
     });
 
-    $('li.class_unit_alternatives').each(function(){
-        if ( $(this).index() == 2 ) {
-            now_class_unit = $(this).children('span.class_unit_id').text();
-        }
-    });
+    // $('li.class_unit_alternatives').each(function(){
+    //     if ( $(this).index() == 2 ) {
+    //         now_class_unit = $(this).children('span.class_unit_id').text();
+    //     }
+    // });
+
+    now_class_unit = $('li.class_unit_alternatives').eq(2).children('span.class_unit_id').text();
 
 
     $('tr.student_record_row td select').each(function(){

@@ -212,12 +212,17 @@ $(document).ready(function(){
         }
 
     $('li.class_unit_alternatives').children('a').click(function(){
-        var _class_unit_id = $(this).siblings('span.class_unit_id').text();
-        var _new_url = base_url + "index/everyday_grade?class_unit_id=" + _class_unit_id;
-        if ( getUrlParam('course_id') != null ) {
-            _new_url = _new_url + "&course_id=" + getUrlParam('course_id');
+
+        if ( window.location.href.indexOf('everyday_grade') > -1 ) {
+
+            var _class_unit_id = $(this).siblings('span.class_unit_id').text();
+            var _new_url = base_url + "index/everyday_grade?class_unit_id=" + _class_unit_id;
+            if ( getUrlParam('course_id') != null ) {
+                _new_url = _new_url + "&course_id=" + getUrlParam('course_id');
+            }
+            window.location.href = _new_url;
+
         }
-        window.location.href = _new_url;
     });
 
     $('a.course_alternatives').click(function(){
