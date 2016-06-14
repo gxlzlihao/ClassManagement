@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     post '/index/upload_document' => 'index#upload_document'
     post '/index/create_homework' => 'index#create_homework'
     post '/index/clear_user_data' => 'index#clear_user_data'
+    post '/index/update_course_records' => 'index#update_course_records'
 
     get '/homework/details' => 'homeworkdetails#index'
 

@@ -122,7 +122,7 @@ $(document).ready(function(){
 
     });
 
-    // $("#form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+    // $("#deadline_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
 
     $('button#create_homework').click(function(){
         var _course_id = $('a#now_course_info').text().split(':')[0];

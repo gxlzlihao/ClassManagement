@@ -179,6 +179,30 @@ class IndexController < ApplicationController
         end
     end
 
+    def update_course_records
+
+        if params[:array] == nil or params[:course_id] == nil
+            res = '{"result":"error"}'
+        else
+            _course_id = params[:course_id]
+            params[:array].each do |i, iter|
+                if iter[:everyday_grade] != nil
+                    EverydayGrade.all.where( :student_id => iter[:student_id], :course_id => _course_id ).update_all( grade: iter[:everyday_grade] )
+                end
+                if iter[:values] != nil
+                    iter[:values].each do |j, item|
+                        CourseRecord.all.where( :student_id => iter[:student_id], :course_id => _course_id, :index => ( item[:index].to_i + 1 ) ).update_all( grade: item[:value] )
+                    end
+                end
+            end
+            res = '{"result":"ok"}'
+        end
+
+        respond_to do |format|
+            format.json { render json: res, status: "200" }
+        end
+    end
+
     def delete_student
 
         student = Student.find( params[:student_id] )
@@ -284,16 +308,6 @@ class IndexController < ApplicationController
             send_file address 
         end
 
-        # TODO: fails to let the browser react to the downloading action
-
-        # if File.exist?( address )
-        #     #@system_uploadfile.add_download_count
-        #     #send_file file_path,:disposition => 'inline'
-        #     io = File.open( address )
-        #     io.binmode
-        #     send_data( io.read, :filename => address, :disposition => 'attachment' )
-        #     io.close
-        # end
     end
 
     protected

@@ -73,7 +73,7 @@ $(document).ready(function(){
 
     $('div#btnConfirmSave').click(function(){
 
-        var _latest_records = new Array();
+        var _array = new Array();
         $('tr.everydayGradeItem').each(function(){
             var _values = new Array();
             $(this).children('td').eq(2).children('div').children('input').each(function(){
@@ -82,10 +82,12 @@ $(document).ready(function(){
                 var _value = $(this).val();
                 var _obj = new Object();
 
-                _obj.index = _index;
-                _obj.value = _value;
+                if ( _value != null && _value != '' && _value != $(this).attr('placeholder') ) {
+                    _obj.index = _index;
+                    _obj.value = _value;
 
-                _values.push( _obj );
+                    _values.push( _obj );
+                }
             });
 
             var _student_id = $(this).children('td').eq(1).text();
@@ -93,19 +95,45 @@ $(document).ready(function(){
             var _obj = new Object();
 
             _obj.student_id = _student_id;
-            _obj.everyday_grade = _everyday_grade;
+            if ( _everyday_grade != null && _everyday_grade != '' && _everyday_grade != $(this).children('td').last().children('input').attr("placeholder") ) {
+                _obj.everyday_grade = _everyday_grade;
+            }
             _obj.values = _values;
-
-            _latest_records.push( _obj );
+            _array.push( _obj );
         });
 
-        // TODO: update the recorded data inside the database.
+        var _course_id = $('a#now_course_info').text().split(':')[0];
+
+        var _data = new Object();
+        _data.array = _array;
+        _data.course_id = _course_id;
+
+        $.ajax({
+                    type: 'POST',
+                    url: '/index/update_course_records',
+                    data: _data,
+                    complete: function( obj ){ 
+
+                        console.log( obj ); 
+                        var _answer = obj.responseText;
+                        var _result = JSON.parse( _answer ).result;
+
+                        if ( _result == 'ok' ) {
+                            console.log( "updating succeeds" );
+                        } else if ( _result == 'error' ) {
+                            console.log( "updating fails" );
+                        }
+
+                    } ,
+                    dataType: 'json'
+            });
 
         $('tr.everydayGradeItem').each(function(){
 
             $(this).children('td').eq(2).children('div').children('input').each(function(){
 
                 var _value = $(this).val();
+                if ( _value == null || _value == '' ) _value = $(this).attr('placeholder');
                 if ( _value == '' ) _value = ' - ';
                 var _new_element = $('<div class="col-md-1">' + _value + '</div>');
                 _new_element.appendTo( $(this).parent() );
@@ -114,6 +142,9 @@ $(document).ready(function(){
             });
 
             var _value = $(this).children('td').last().children('input').val();
+            if ( _value == null || _value == '' ) {
+                _value = $(this).children('td').last().children('input').attr('placeholder');
+            }
             $(this).children('td').last().children('input').remove();
             $(this).children('td').last().text( _value );
 

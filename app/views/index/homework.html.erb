@@ -7,11 +7,11 @@
     <% end %>
 
     <% content_for :javascripts do %>
+        <%= javascript_include_tag 'common/jquery/jquery' %>
         <%= javascript_include_tag 'common/ie-emulation-modes-warning' %>
         <%= javascript_include_tag 'common/ie10-viewport-bug-workaround' %>
         <%= javascript_include_tag 'common/moment/moment' %>
         <%= javascript_include_tag 'common/bootstrap/bootstrap' %>
-        <%= javascript_include_tag 'common/jquery/jquery' %>
         <%= javascript_include_tag 'common/bootstrap.time-picker/bootstrap-datetimepicker' %>
         <%= javascript_include_tag 'common/bootstrap.time-picker/locales/bootstrap-datetimepicker.zh-CN.js' %>
         <%= javascript_include_tag 'index/index_homework' %>
