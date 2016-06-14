@@ -61,4 +61,19 @@ class AttendancedetailsController < ApplicationController
             format.json { render json: res, status: "200" }
         end
     end
+
+    def update_attendance_record
+
+        if AttendanceRecord.all.where( :student_id => params[:student_id], :attendance_check_id => params[:check_id] ) == nil
+            res = '{"result":"error"}'
+        else
+            AttendanceRecord.all.where( :student_id => params[:student_id], :attendance_check_id => params[:check_id] ).update_all( status: params[:new_status] )
+            res = '{"result":"ok"}'
+        end
+
+        respond_to do |format|
+            format.json { render json: res, status: "200" }
+        end
+
+    end
 end

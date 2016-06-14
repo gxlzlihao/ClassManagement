@@ -49,82 +49,65 @@ $(document).ready(function(){
         $(this).parent().siblings('label').children('input:checkbox').prop('checked', false)
     });
 
-    // $('button#submit_create_student').click(function(){
-    //     var _input_student_name = $('input#inputStudentName').val();
-    //     var _input_student_id = $('input#inputStudentId').val();
-    //     var _input_student_password = $('input#inputStudentPassword').val();
-    //     var _input_student_class_unit = null;
+    $('tr.attendance_record_item').children('td.status').children('span').each(function(){
+        var _status = $(this).text();
+        if ( _status == '1' )
+            $(this).next().val('缺勤');
+        else if ( _status == '2' )
+            $(this).next().val('迟到');
+        else if ( _status == '3' )
+            $(this).next().val('请假');
+        else if ( _status == '4' )
+            $(this).next().val('出勤');
+    });
 
-    //     $('div#inputStudentClassUnit label').children('input:checkbox').each(function(){
-    //         if ( $(this).is(':checked') ) {
-    //             var _this_class_unit_id = $(this).siblings('span').text();
-    //             _input_student_class_unit = _this_class_unit_id;
-    //         }
-    //     });
+    function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
 
-    //     var _data = new Object();
-    //     _data.student_name = _input_student_name;
-    //     _data.student_id = _input_student_id;
-    //     _data.student_class_unit = _input_student_class_unit;
-    //     _data.student_password = _input_student_password;
+    $('tr.attendance_record_item').children('td.status').children('select').change(function(){
 
-    //     $.ajax({
-    //             type: 'POST',
-    //             url: '/index/create_student' ,
-    //             data: _data ,
-    //             complete: function( obj ){ 
+        var _student_id = $(this).parent().prev().prev().text();
+        var _check_id = getUrlParam("check_id");
+        var _status = null;
+        var _this_status = $(this).val();
+        if ( _this_status.indexOf('出勤') > -1 ) {
+            _status = 4;
+        } else if ( _this_status.indexOf('请假') > -1 ) {
+            _status = 3;
+        } else if ( _this_status.indexOf('迟到') > -1 ) {
+            _status = 2;
+        } else if ( _this_status.indexOf('缺勤') > -1 ) {
+            _status = 1;
+        }
 
-    //                 console.log( obj ); 
-    //                 var _answer = obj.responseText;
-    //                 var _result = JSON.parse( _answer ).result;
+        var _data = new Object();
+        _data.student_id = _student_id;
+        _data.check_id = _check_id;
+        _data.new_status = _status;
 
-    //                 if ( _result == 'ok' ) {
-    //                     alert( "creating succeeds" );
-    //                     window.location.reload();
-    //                 } else if ( _result == 'error' ) {
-    //                     alert( "creating fails" );
-    //                 }
+        $.ajax({
+                    type: 'POST',
+                    url: '/attendance/update_attendance_record',
+                    data: _data,
+                    complete: function( obj ){ 
 
-    //             } ,
-    //             dataType: 'json'
-    //     });
+                        console.log( obj ); 
+                        var _answer = obj.responseText;
+                        var _result = JSON.parse( _answer ).result;
 
-    // });
+                        if ( _result == 'ok' ) {
+                            console.log( "updating attendance record succeeds" );
+                        } else if ( _result == 'error' ) {
+                            console.log( "updating attendance record fails" );
+                        }
 
-    // $('button#submit_create_course').click(function(){
-    //     var _input_course_name = $('input#inputCourseName').val();
-    //     var _input_course_class_units = [];
-    //     $('div#inputCourseClassUnit label').children('input:checkbox').each(function(){
-    //         if ( $(this).is(':checked') ) {
-    //             var _this_class_unit_id = $(this).siblings('span').text();
-    //             _input_course_class_units.push( _this_class_unit_id );
-    //         }
-    //     });
+                    } ,
+                    dataType: 'json'
+            });
 
-    //     var _submit_data = new Object();
-    //     _submit_data.course_name = _input_course_name;
-    //     _submit_data.course_class_units = _input_course_class_units;
-
-    //     $.ajax({
-    //             type: 'POST',
-    //             url: '/index/create_course' ,
-    //             data: _submit_data ,
-    //             complete: function( obj ){ 
-
-    //                 console.log( obj ); 
-    //                 var _answer = obj.responseText;
-    //                 var _result = JSON.parse( _answer ).result;
-
-    //                 if ( _result == 'ok' ) {
-    //                     alert( "creating succeeds" );
-    //                     window.location.reload();
-    //                 } else if ( _result == 'error' ) {
-    //                     alert( "creating fails" );
-    //                 }
-
-    //             } ,
-    //             dataType: 'json'
-    //     });
-    // });
+    });
 
 });

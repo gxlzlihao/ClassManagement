@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
     post '/attendance/create_new_attendance_check' => 'attendancedetails#create_new_attendance_check'
     post '/attendance/terminate_attendance_check' => 'attendancedetails#terminate_attendance_check'
+    post '/attendance/update_attendance_record' => 'attendancedetails#update_attendance_record'
 
     get '/client/index' => 'client_index#index'
     get '/client/course_browser' => 'client_index#course_browser'

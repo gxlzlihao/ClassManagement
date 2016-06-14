@@ -90,11 +90,12 @@
            </thead>
            <tbody>
               <% @attendance_records.each do |ar| %>
-                  <tr>
+                  <tr class="attendance_record_item">
                    <td><%= ar.student.name %></td>               
                    <td><%= ar.student_id %></td>
                    <td><%= ar.class_unit.name %></td>
-                   <td>
+                   <td class="status">
+                      <span class="_hide"><%= ar.status %></span>
                      <select class="form-control">
                         <option>缺勤</option>
                         <option>迟到</option>
