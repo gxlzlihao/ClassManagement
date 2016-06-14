@@ -197,40 +197,40 @@ $(document).ready(function(){
 
     });
 
-    $('button#submit_create_course').click(function(){
-        var _input_course_name = $('input#inputCourseName').val();
-        var _input_course_class_units = [];
-        $('div#inputCourseClassUnit label').children('input:checkbox').each(function(){
-            if ( $(this).is(':checked') ) {
-                var _this_class_unit_id = $(this).siblings('span').text();
-                _input_course_class_units.push( _this_class_unit_id );
-            }
-        });
+    // $('button#submit_create_course').click(function(){
+    //     var _input_course_name = $('input#inputCourseName').val();
+    //     var _input_course_class_units = [];
+    //     $('div#inputCourseClassUnit label').children('input:checkbox').each(function(){
+    //         if ( $(this).is(':checked') ) {
+    //             var _this_class_unit_id = $(this).siblings('span').text();
+    //             _input_course_class_units.push( _this_class_unit_id );
+    //         }
+    //     });
 
-        var _submit_data = new Object();
-        _submit_data.course_name = _input_course_name;
-        _submit_data.course_class_units = _input_course_class_units;
+    //     var _submit_data = new Object();
+    //     _submit_data.course_name = _input_course_name;
+    //     _submit_data.course_class_units = _input_course_class_units;
 
-        $.ajax({
-                type: 'POST',
-                url: '/index/create_course' ,
-                data: _submit_data ,
-                complete: function( obj ){ 
+    //     $.ajax({
+    //             type: 'POST',
+    //             url: '/index/create_course' ,
+    //             data: _submit_data ,
+    //             complete: function( obj ){ 
 
-                    console.log( obj ); 
-                    var _answer = obj.responseText;
-                    var _result = JSON.parse( _answer ).result;
+    //                 console.log( obj ); 
+    //                 var _answer = obj.responseText;
+    //                 var _result = JSON.parse( _answer ).result;
 
-                    if ( _result == 'ok' ) {
-                        alert( "creating succeeds" );
-                        window.location.reload();
-                    } else if ( _result == 'error' ) {
-                        alert( "creating fails" );
-                    }
+    //                 if ( _result == 'ok' ) {
+    //                     alert( "creating succeeds" );
+    //                     window.location.reload();
+    //                 } else if ( _result == 'error' ) {
+    //                     alert( "creating fails" );
+    //                 }
 
-                } ,
-                dataType: 'json'
-        });
-    });
+    //             } ,
+    //             dataType: 'json'
+    //     });
+    // });
 
 });

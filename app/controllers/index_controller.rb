@@ -80,7 +80,9 @@ class IndexController < ApplicationController
             end
         end
 
-        puts "the total length of the array: " + @startup_course_records.count.to_s
+        if @startup_course_records != nil
+            puts "the total length of the array: " + @startup_course_records.count.to_s
+        end
 
     end
 
