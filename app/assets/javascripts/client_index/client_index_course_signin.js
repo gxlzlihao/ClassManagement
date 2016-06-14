@@ -27,4 +27,8 @@ $(document).ready(function(){
                 dataType: 'json'
         });
     });
+
+    $('img#topbar_back_image').click(function(){
+        window.history.go(-1);
+    });
 });
