@@ -151,6 +151,26 @@ class IndexController < ApplicationController
         end
     end
 
+    def delete_student
+
+        student = Student.find( params[:student_id] )
+        homework_records = HomeworkRecord.all.where( :student_id => params[:student_id] )
+        attendance_records = AttendanceRecord.all.where( :student_id => params[:student_id] )
+        course_records = CourseRecord.all.where( :student_id => params[:student_id] )
+        everyday_grades = EverydayGrade.all.where( :student_id => params[:student_id] )
+
+        if homework_records.destroy_all and attendance_records.destroy_all and course_records.destroy_all and everyday_grades.destroy_all and student.destroy
+            res = '{"result":"ok"}'
+        else
+            res = '{"result":"error"}'
+        end
+
+        respond_to do |format|
+            format.json { render json: res, status: "200" }
+        end
+
+    end
+
     def create_course
 
         @course = Course.new

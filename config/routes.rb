@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     post '/index/create_course' => 'index#create_course'
     post '/index/create_student' => 'index#create_student'
     post '/index/update_student' => 'index#update_student'
+    post '/index/delete_student' => 'index#delete_student'
     post '/index/upload_document' => 'index#upload_document'
     post '/index/download_document' => 'index#download_document'
     post '/index/clear_user_data' => 'index#clear_user_data'

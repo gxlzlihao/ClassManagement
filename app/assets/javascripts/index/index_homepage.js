@@ -247,4 +247,43 @@ $(document).ready(function(){
         });
     });
 
+    $('a.student_information_details').click(function(){
+        var _name = $(this).text();
+        var _id = $(this).parent().next().text();
+        var _class_unit = $(this).parent().next().next().children('select').val().split(':')[1];
+
+        $('h4#student_details_name').text( _name );
+        $('h4#student_details_id').text( _id );
+        $('h4#student_details_class_unit').text( _class_unit );
+    });
+
+    $('button#delete_account').click(function(){
+
+        var _id = $('h4#student_details_id').text();
+        var _data = new Object();
+        _data.student_id = _id;
+
+        $.ajax({
+                type: 'POST',
+                url: '/index/delete_student' ,
+                data: _data ,
+                complete: function( obj ){ 
+
+                    console.log( obj ); 
+                    var _answer = obj.responseText;
+                    var _result = JSON.parse( _answer ).result;
+
+                    if ( _result == 'ok' ) {
+                        alert( "deleting succeeds" );
+                        window.location.reload();
+                    } else if ( _result == 'error' ) {
+                        alert( "deleting fails" );
+                    }
+
+                } ,
+                dataType: 'json'
+        });
+
+    });
+
 });

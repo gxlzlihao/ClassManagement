@@ -80,7 +80,7 @@
 
               <% @students.each do |stu| %>
                 <tr class="student_record_row">
-                  <td><%= stu.name %></td>
+                  <td><a class="student_information_details" data-toggle="modal" data-target="#studentInformation"><%= stu.name %></a></td>
                   <td><%= stu.id %></td>
                   <td>
                       <span class="_hide class_unit_id" style="display: none"><%= stu.class_unit_id %></span>
@@ -210,6 +210,48 @@
         </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 
+</div>
+
+
+<div class="modal fade" id="studentInformation" tabindex="-1" role="dialog" aria-labelledby="studentInformationLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <button type="button" class="close"
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="studentInformationLabel">
+                 学生信息
+              </h4>
+           </div>
+           <div class="modal-body row text-center">
+              <div class="row col-md-12">
+                  <h4 class="col-md-4">学生姓名: </h4>
+                  <h4 id="student_details_name" class="col-md-8"></h4>
+              </div>
+              <div class="row col-md-12">
+                  <h4 class="col-md-4">学生学号: </h4>
+                  <h4 id="student_details_id" class="col-md-8"></h4>
+              </div>
+              <div class="row col-md-12">
+                  <h4 class="col-md-4">学生班级: </h4>
+                  <h4 id="student_details_class_unit" class="col-md-8"></h4>
+              </div>
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">
+                取消
+              </button>
+              <button id="change_password" type="button" class="btn btn-primary">
+                修改密码
+              </button>
+              <button id="delete_account" type="button" class="btn btn-danger" data-dismiss="modal">
+                注销账号
+              </button>
+           </div>
+        </div><!-- /.modal-content -->
+  </div><!-- /.modal -->
 </div>
 
     </div> <!-- /container -->
