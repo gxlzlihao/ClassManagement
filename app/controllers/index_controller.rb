@@ -246,7 +246,8 @@ class IndexController < ApplicationController
 
         address = "#{Rails.root}" + params[:address];
         if File.exist?( address )
-            send_file address unless params[:address].blank?
+            puts "begin downloading" + address
+            send_file address 
         end
 
         # TODO: fails to let the browser react to the downloading action
