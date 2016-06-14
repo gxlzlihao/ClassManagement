@@ -50,9 +50,8 @@ class AttendancedetailsController < ApplicationController
         _check = AttendanceCheck.find( _check_id )
         _check.status = 0
 
-
         if _check.save
-            res = '{"result":"ok"}'
+            res = '{"result":"ok", "check_id":' + _check_id + '}'
         else
             res = '{"result":"error"}'
         end

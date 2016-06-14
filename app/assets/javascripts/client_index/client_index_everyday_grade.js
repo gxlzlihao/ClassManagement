@@ -12,6 +12,10 @@ $(document).ready(function(){
 
     $('div#main_attendance').css({'display':'block'});
 
+    $('img#topbar_back_image').click(function(){
+        window.history.go(-1);
+    });
+
     $('div#sub_navbar div div').each(function(){
         $(this).click(function(){
             $(this).siblings('div').each(function(){

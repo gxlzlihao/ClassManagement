@@ -87,7 +87,7 @@
                      <td>
                         <div class="row col-md-12">
                           <div class="col-md-6">
-                            <span class="_hide attendance_check_id"><%= ac.id %></span><a href="/attendance/details?check_id=<%= ac.id %>" ><span>考勤课程：</span><span><%= ac.course.name %></span></a><span class="_hide course_id"><%= ac.course.id%></span>
+                            <span class="_hide attendance_check_id"><%= ac.id %></span><a href="#" class="attendance_check_details"><span>考勤课程：</span><span><%= ac.course.name %></span></a><span class="_hide course_id"><%= ac.course.id%></span>
                           </div>
                           <div class="col-md-6">
                             <span>考勤时间：</span><span><%= ac.created_at %></span>
@@ -95,7 +95,7 @@
                         </div>
                         <div class="row col-md-12">
                             <div class="col-md-6">
-                              <span>考勤情况：应到 </span><span class="should_arrive"><%= @attendance_records.where( :attendance_check => ac, :status => 1 ).count() %></span><span> 实到 </span><span class="real_arrive"><%= @attendance_records.where( :attendance_check => ac, :status => 2 ).count() %></span><span> 缺勤 </span><span><%= @attendance_records.where( :attendance_check => ac, :status => 3 ).count() %></span>
+                              <span>考勤情况：应到 </span><span class="should_arrive"><%= @attendance_records.where( :attendance_check => ac ).count() %></span><span> 实到 </span><span class="real_arrive"><%= @attendance_records.where( :attendance_check => ac, :status => 4 ).count() %></span><span> 缺勤 </span><span><%= @attendance_records.where( :attendance_check => ac ).count().to_i - @attendance_records.where( :attendance_check => ac, :status => 4 ).count().to_i %></span>
                             </div>
                         </div>
                       </td>
@@ -156,10 +156,11 @@
               </h4>
            </div>
            <div class="modal-body row col-md-12">
+              <h1 class="_hide" id="temporal_check_id"></h1>
               <h1 class="text-center" id="attendanceCheckNumber">9999</h1>
            </div>
            <div class="modal-footer">
-              <a id="terminate_attendance_check" href="/attendance/details"><button type="button" class="btn btn-primary">考勤结束</button></a>
+              <a id="terminate_attendance_check" href="#"><button type="button" class="btn btn-primary">考勤结束</button></a>
            </div>
          </div>
        </div>

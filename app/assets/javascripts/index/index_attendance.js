@@ -102,7 +102,7 @@ $(document).ready(function(){
                             check_id = JSON.parse( _answer ).new_check_id;
                             console.log( "creating attendance check succeeds, with the new check id: " + check_id );
 
-                            $('a#terminate_attendance_check').attr( 'href', '/attendance/details?check_id=' + check_id );
+                            $('h1#temporal_check_id').text( check_id );
                         } else if ( _result == 'error' ) {
                             console.log( "creating attendance check fails" );
                         }
@@ -112,9 +112,16 @@ $(document).ready(function(){
             });
     });
 
+    $('a.attendance_check_details').click(function(){
+        var _check_id = $(this).prev().text();
+        ss = window.location.href.split('/');
+        var new_url = ss[0] + '/' + ss[1] + '/' + ss[2]+ '/attendance/details?check_id=' + _check_id;
+        window.location.href = new_url;
+    });
+
     $('a#terminate_attendance_check').click(function(){
         var _data = new Object();
-        _data.check_id = check_id;
+        _data.check_id = $('h1#temporal_check_id').text();;
 
         $.ajax({
                     type: 'POST',
@@ -127,7 +134,11 @@ $(document).ready(function(){
                         var _result = JSON.parse( _answer ).result;
 
                         if ( _result == 'ok' ) {
+                            var _check_id = JSON.parse( _answer ).check_id;
                             console.log( "terminate attendance check succeeds" );
+                            ss = window.location.href.split('/');
+                            var new_url = ss[0] + '/' + ss[1] + '/' + ss[2] + '/attendance/details?check_id=' + _check_id;
+                            window.location.href = new_url;
                         } else if ( _result == 'error' ) {
                             console.log( "termiante attendance check fails" );
                         }

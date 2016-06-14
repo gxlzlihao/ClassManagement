@@ -25,8 +25,22 @@ class ClientIndexController < ApplicationController
     end
 
     def everyday_grade
+
         @attendance_checks = AttendanceCheck.all.where( :course_id => session[:course_id] ).order("created_at DESC")
         @attendance_records = AttendanceRecord.all.where( :student_id => session[:student_id], :course_id => session[:course_id] )
+
+        @homework_records = nil
+        Homework.all.where( :course_id => session[:course_id] ).each do |hw|
+            hr = HomeworkRecord.all.where( :homework_id => hw.id, :student_id => session[:student_id] )
+            if @homework_records == nil
+                @homework_records = hr
+            else
+                @homework_records.concat( hr )
+            end
+        end
+
+        @course_records = CourseRecord.all.where( :student_id => session[:student_id], :course_id => session[:course_id] ).order("created_at DESC")
+
     end
 
     def course_signin
