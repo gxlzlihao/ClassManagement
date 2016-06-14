@@ -101,11 +101,11 @@ class IndexController < ApplicationController
         @homework_records = HomeworkRecord.all
         @homeworks = Homework.all
 
-        @attendance_records.destroy_all() 
-        @attendance_checks.destroy_all()
-        @course_records.destroy_all() 
-        @homework_records.destroy_all() 
-        @homeworks.destroy_all()
+        @attendance_records.destroy_all
+        @attendance_checks.destroy_all
+        @course_records.destroy_all 
+        @homework_records.destroy_all 
+        @homeworks.destroy_all
 
         res = '{"result":"ok"}'
 
@@ -116,18 +116,37 @@ class IndexController < ApplicationController
 
     def create_student
 
-        @student = Student.new
-        @student.id = params[:student_id]
-        @student.name = params[:student_name]
-        @student.password = params[:student_password]
+        if ( Student.find_by id: params[:student_id] ) == nil
 
-        student_class_unit = ClassUnit.find_by_name(params[:student_class_unit])
-        @student.class_unit = student_class_unit
+            @student = Student.new
+            @student.id = params[:student_id]
+            @student.name = params[:student_name]
+            @student.password = params[:student_password]
 
-        if @student.save
-            res = '{"result":"ok"}'
+            student_class_unit = ClassUnit.find( params[:student_class_unit] )
+            @student.class_unit = student_class_unit
+
+            if @student.save
+
+                CourseClassUnit.all.where( :class_unit_id => params[:student_class_unit] ).each do |ccu|
+
+                    EverydayGrade.create( :student => @student, :course => Course.find( ccu.course_id ), :class_unit => student_class_unit, :grade => nil )
+                    (1..7).each do |i|
+                        # each student in each course has seven course records by default. 
+                        CourseRecord.create( :grade => "-1", :course => Course.find( ccu.course_id ), :student => @student, :index => i )
+                    end
+
+                end
+
+                res = '{"result":"ok"}'
+            else
+                res = '{"result":"error"}'
+            end
+
         else
-            res = '{"result":"error"}'
+
+            res = '{"result":"duplicated_id"}'
+
         end
 
         respond_to do |format|
@@ -139,6 +158,15 @@ class IndexController < ApplicationController
     def update_student
         target_student = Student.find_by( id: params[:student_id] )
         target_student.class_unit_id = params[:class_unit_id]
+
+        everyday_grades = EverydayGrade.all.where( :student_id => params[:student_id] )
+        everyday_grades.update_all( class_unit_id: params[:class_unit_id] )
+
+        homework_records = HomeworkRecord.all.where( :student_id => params[:student_id] )
+        homework_records.update_all( class_unit_id: params[:class_unit_id] )
+
+        attendance_records = AttendanceRecord.all.where( :student_id => params[:student_id] )
+        attendance_records.update_all( class_unit_id: params[:class_unit_id] )
         
         if target_student.save
             res = '{"result":"ok"}'

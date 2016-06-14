@@ -77,12 +77,6 @@ $(document).ready(function(){
         });
     });
 
-    // $('li.class_unit_alternatives').each(function(){
-    //     if ( $(this).index() == 2 ) {
-    //         now_class_unit = $(this).children('span.class_unit_id').text();
-    //     }
-    // });
-
     now_class_unit = $('li.class_unit_alternatives').eq(2).children('span.class_unit_id').text();
 
 
@@ -203,6 +197,8 @@ $(document).ready(function(){
                         window.location.reload();
                     } else if ( _result == 'error' ) {
                         alert( "creating fails" );
+                    } else if ( _result == 'duplicated_id' ) {
+                        alert( "the id is duplicated" );
                     }
 
                 } ,
