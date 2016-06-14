@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get '/index/document' => 'index#document'
     get '/index/everyday_grade' => 'index#everyday_grade'
     get '/index/attendance' => 'index#attendance' 
+    get '/index/download_document' => 'index#download_document'
 
     post '/index/teacher_signin' => 'index#teacher_signin'
     post '/index/create_course' => 'index#create_course'
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
     post '/index/update_student' => 'index#update_student'
     post '/index/delete_student' => 'index#delete_student'
     post '/index/upload_document' => 'index#upload_document'
-    get '/index/download_document' => 'index#download_document'
+    post '/index/create_homework' => 'index#create_homework'
     post '/index/clear_user_data' => 'index#clear_user_data'
 
     get '/homework/details' => 'homeworkdetails#index'

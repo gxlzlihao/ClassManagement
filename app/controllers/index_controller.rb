@@ -226,6 +226,40 @@ class IndexController < ApplicationController
 
     end
 
+    def create_homework
+
+        homework = Homework.new
+        homework.name = params[:homework_name]
+        homework.description = params[:homework_description]
+        homework.course = Course.find( params[:course_id] )
+        homework.deadline = DateTime.parse( params[:deadline] )
+
+        if homework.save
+
+            CourseClassUnit.all.where(course_id:params[:course_id]).each do |ccu|
+                ClassUnit.find( ccu.class_unit_id ).students.each do |stu|
+                    homework_record = HomeworkRecord.new
+                    homework_record.status = false
+                    homework_record.grade = 0
+                    homework_record.student = stu
+                    homework_record.homework = homework
+                    homework_record.class_unit = ClassUnit.find( ccu.class_unit_id )
+                    homework_record.address = nil
+                    homework_record.save
+                end
+            end
+
+            res = '{"result":"ok"}'
+        else
+            res = '{"result":"error"}'
+        end
+
+        respond_to do |format|
+            format.json { render json: res, status: "200" }
+        end
+
+    end
+
     def upload_document
         puts document_params['document_url']
         puts document_params['course_id']

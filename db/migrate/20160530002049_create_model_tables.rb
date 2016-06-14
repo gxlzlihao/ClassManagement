@@ -34,6 +34,7 @@ class CreateModelTables < ActiveRecord::Migration
 
     create_table :homeworks do |t|
         t.string :name
+        t.string :description
         t.boolean :status, default: false
         t.datetime :deadline
         t.timestamps null: false

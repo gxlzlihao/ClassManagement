@@ -38,7 +38,7 @@
               <li class="dropdown">
                 <a id="now_course_info" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <% if params[:homework_id] != nil%>
-                    <%= @courses.find_by_id(params[:homework_id]).id%>:<%= @courses.find_by_id(params[:homework_id]).name %>  
+                    <%= @target_course.id%>:<%= @target_course.name %>  
                   <% else %>
                     <%= @courses.first.id%>:<%= @courses.first.name %> 
                   <% end %>

@@ -5,6 +5,7 @@ class HomeworkdetailsController < ApplicationController
     def index
         puts params[:homework_id]
         @courses = Course.all
+        @target_course = Course.find( Homework.find( params[:homework_id] ).course_id )
         @class_units = ClassUnit.all
         @ori_hw = Homework.find_by_id( params[:homework_id] );
         @homeworks = HomeworkRecord.where( :homework_id => params[:homework_id] )

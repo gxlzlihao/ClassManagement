@@ -56,7 +56,7 @@ $(document).ready(function(){
     });
 
     $('a.course_alternatives').click(function(){
-        if ( $(this).text() != $('a#now_course_info').text() ) {
+
             $('a#now_course_info').text( $(this).text() );
             now_course_id = $(this).text().split(':')[0];
 
@@ -68,7 +68,6 @@ $(document).ready(function(){
                 $(this).removeClass('_hide');
             }
         });
-        }
     });
 
     $('a.homework_details').click(function(){
@@ -123,40 +122,51 @@ $(document).ready(function(){
 
     });
 
-    // $('button#submit_create_course').click(function(){
-    //     var _input_course_name = $('input#inputCourseName').val();
-    //     var _input_course_class_units = [];
-    //     $('div#inputCourseClassUnit label').children('input:checkbox').each(function(){
-    //         if ( $(this).is(':checked') ) {
-    //             var _this_class_unit_id = $(this).siblings('span').text();
-    //             _input_course_class_units.push( _this_class_unit_id );
-    //         }
-    //     });
+    // $("#form_datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
 
-    //     var _submit_data = new Object();
-    //     _submit_data.course_name = _input_course_name;
-    //     _submit_data.course_class_units = _input_course_class_units;
+    $('button#create_homework').click(function(){
+        var _course_id = $('a#now_course_info').text().split(':')[0];
+        var _course_name = $('a#now_course_info').text().split(':')[1];
 
-    //     $.ajax({
-    //             type: 'POST',
-    //             url: '/index/create_course' ,
-    //             data: _submit_data ,
-    //             complete: function( obj ){ 
+        $('label#homework_course_id').text( _course_id );
+        $('label#homework_course_name').text( _course_name );
+    });
 
-    //                 console.log( obj ); 
-    //                 var _answer = obj.responseText;
-    //                 var _result = JSON.parse( _answer ).result;
+    $('button#submit_create_homework').click(function(){
 
-    //                 if ( _result == 'ok' ) {
-    //                     alert( "creating succeeds" );
-    //                     window.location.reload();
-    //                 } else if ( _result == 'error' ) {
-    //                     alert( "creating fails" );
-    //                 }
+        var _course_id = $('label#homework_course_id').text();
+        var _course_name = $('label#homework_course_name').text();
+        var _homework_name = $('input#input_homework_name').val();
+        var _homework_description = $('input#input_homework_description').val();
+        var _deadline = $('input#deadline_datetime').val();
 
-    //             } ,
-    //             dataType: 'json'
-    //     });
-    // });
+        var _data = new Object();
+        _data.course_id = _course_id;
+        _data.course_name = _course_name;
+        _data.homework_name = _homework_name;
+        _data.homework_description = _homework_description;
+        _data.deadline = _deadline;
+
+        $.ajax({
+                type: 'POST',
+                url: '/index/create_homework' ,
+                data: _data ,
+                complete: function( obj ){ 
+
+                    console.log( obj ); 
+                    var _answer = obj.responseText;
+                    var _result = JSON.parse( _answer ).result;
+
+                    if ( _result == 'ok' ) {
+                        alert( "creating succeeds" );
+                        window.location.reload();
+                    } else if ( _result == 'error' ) {
+                        alert( "creating fails" );
+                    }
+
+                } ,
+                dataType: 'json'
+        });
+    });
 
 });

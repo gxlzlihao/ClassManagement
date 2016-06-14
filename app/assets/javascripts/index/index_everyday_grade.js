@@ -148,12 +148,18 @@ $(document).ready(function(){
     });
 
     $('a.course_alternatives').click(function(){
-        var _course_id = $(this).text().split(':')[0];
-        var _new_url = base_url + "index/everyday_grade?course_id=" + _course_id;
-        if ( getUrlParam('class_unit_id') != null ) {
-            _new_url = _new_url + "&class_unit_id=" + getUrlParam('class_unit_id');
+
+        if ( window.location.href.indexOf('everyday_grade') > -1 ) {
+
+            var _course_id = $(this).text().split(':')[0];
+            var _new_url = base_url + "index/everyday_grade?course_id=" + _course_id;
+            if ( getUrlParam('class_unit_id') != null ) {
+                _new_url = _new_url + "&class_unit_id=" + getUrlParam('class_unit_id');
+            }
+            window.location.href = _new_url;
+        
         }
-        window.location.href = _new_url;
+
     });
 
 
