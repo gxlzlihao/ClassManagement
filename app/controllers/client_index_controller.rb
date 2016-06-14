@@ -49,6 +49,27 @@ class ClientIndexController < ApplicationController
         end
     end
 
+    def edit_password
+
+        student = Student.find_by( id: params[:student_id], password: params[:student_password] )
+
+        if student == nil
+            res = '{"result":"not_found"}'
+        else
+            student.password = params[:new_password]
+            if student.save
+                res = '{"result":"ok"}'
+            else
+                res = '{"result":"error"}'
+            end
+        end
+
+        respond_to do |format|
+            format.json { render json: res, status: "200" }
+        end
+
+    end
+
     def verify_signin
 
         @ac = AttendanceCheck.where( status: 1 ).order("created_at DESC")

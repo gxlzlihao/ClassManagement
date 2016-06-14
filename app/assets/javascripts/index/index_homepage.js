@@ -286,4 +286,50 @@ $(document).ready(function(){
 
     });
 
+    $('button#change_password').click(function(){
+        $('h4#student_details_name2').text( $('h4#student_details_name').text() );
+        $('h4#student_details_id2').text( $('h4#student_details_id').text() );
+    });
+
+    $('button#confirm_change_password').click(function(){
+
+        var new_password = $('input#newPassword').val();
+        var new_password_confirm = $('input#newPasswordConfirm').val();
+
+        if ( new_password != new_password_confirm ) {
+            alert( "您前后输入的新密码并不匹配！" );
+        } else {
+
+            var student_id = $('h4#student_details_id2').text();
+            var student_password = $('input#oldPassword').val();
+            var _data = new Object();
+            _data.student_id = student_id;
+            _data.student_password = student_password;
+            _data.new_password = new_password;
+
+            $.ajax({
+                    type: 'POST',
+                    url: '/client/edit_password' ,
+                    data: _data ,
+                    complete: function( obj ){ 
+
+                        console.log( obj ); 
+                        var _answer = obj.responseText;
+                        var _result = JSON.parse( _answer ).result;
+
+                        if ( _result == 'ok' ) {
+                            alert( "密码修改成功！" );
+                            window.location.reload();
+                        } else if ( _result == 'error' ) {
+                            alert( "密码修改失败！" );
+                        } else if ( _result == 'not_found' ) {
+                            alert( "旧密码不匹配！" );
+                        }
+
+                    } ,
+                    dataType: 'json'
+            });
+        }
+    });
+
 });

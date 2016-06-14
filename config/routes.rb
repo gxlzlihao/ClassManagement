@@ -34,6 +34,7 @@ Rails.application.routes.draw do
 
     post '/client/signin' => 'client_index#client_signin'
     post '/client/verify_signin' => 'client_index#verify_signin'
+    post '/client/edit_password' => 'client_index#edit_password'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
