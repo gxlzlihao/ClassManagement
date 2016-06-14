@@ -90,10 +90,9 @@ $(document).ready(function(){
         _data.address = _address;
 
         $.ajax({
-                    type: 'POST',
+                    type: 'GET',
                     url: '/index/download_document' ,
-                    data: _data ,
-                    dataType: 'json'
+                    data: _data
             });
     });
 

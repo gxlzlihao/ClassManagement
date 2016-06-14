@@ -90,7 +90,7 @@
            <tbody>
               <% @documents.each do |doc| %>
                 <tr class="document_item">
-                    <td><a class="document_link" href="#"><span class="address _hide"><%= doc.address %></span><%= doc.name %></a><span class="course_id _hide"><%= doc.course_id %></span></td>               
+                    <td><a class="document_link" href='/index/download_document?address=<%= doc.address %>'><span class="address _hide"><%= doc.address %></span><%= doc.name %></a><span class="course_id _hide"><%= doc.course_id %></span></td>               
                     <td><%= doc.created_at %><span class="address _hide"><%= doc.address%></span></td>
                 </tr>
               <% end %>
