@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     get '/client/client_homepage' => 'client_index#client_homepage'
     get '/client/everyday_grade' => 'client_index#everyday_grade'
     get '/client/course_signin' => 'client_index#course_signin'
+    get '/client/change_password' => 'client_index#change_password'
 
     post '/client/signin' => 'client_index#client_signin'
     post '/client/verify_signin' => 'client_index#verify_signin'

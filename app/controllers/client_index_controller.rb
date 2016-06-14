@@ -63,6 +63,9 @@ class ClientIndexController < ApplicationController
         end
     end
 
+    def change_password
+    end
+
     def edit_password
 
         student = Student.find_by( id: params[:student_id], password: params[:student_password] )

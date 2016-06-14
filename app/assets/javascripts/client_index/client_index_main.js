@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    $('button#change_password').click(function(){
+        ss = window.location.href.split('/');
+        var _url = ss[0] + '/' + ss[1] + '/' + ss[2] + '/client/change_password'
+        window.location.href = _url;
+    });
+
     $('button#submit_client_signin').click(function(){
         var _input_client_id = $('input#input_client_id').val();
         var _input_client_password = $('input#input_client_password').val();

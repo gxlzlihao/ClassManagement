@@ -1,17 +1,16 @@
 $(document).ready(function(){
 
-    $('btnDownloadDocument').click(function(){
-        // 
-    });
-
     $('li.document_item').click(function(){
 
         var _doc_id = $(this).children('div').children('h4').text();
         var _doc_name = $(this).children('div').children('h6').text();
         var _doc_description = $(this).children('div').children('p').text();
         var _image_src = $(this).children('img').attr('src');
+        var _doc_address = $(this).children('div').children('h1').text();
 
         $('div#fragment_document_details').children('div').children('h4').text( _doc_name );
+        if ( _doc_address != null )
+            $('div#fragment_document_details').children('div').children('a').attr( 'href', '/index/download_document?address=' + _doc_address );
         $('div#fragment_document_details').children('div').children('h5').text( _doc_id );
         $('div#fragment_document_details').children('div').children('p').text( _doc_description );
         $('div#fragment_document_details').children('div').children('img').attr( 'src', _image_src );
