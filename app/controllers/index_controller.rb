@@ -261,14 +261,16 @@ class IndexController < ApplicationController
         homework.deadline = DateTime.parse( homework_params['deadline_datetime'] )
         homework.status = false
 
-        unless request.get?
-            filename = uploadfile( homework_params['attachment_url'], 'homework_attachments' )           
-            address = '/public/upload/homework_attachments/' + filename
-            
-            puts "Saving one new uploaded homework attachment"
-            puts address
+        if homework_params['attachment_url'] != nil
+            unless request.get?
+                filename = uploadfile( homework_params['attachment_url'], 'homework_attachments' )           
+                address = '/public/upload/homework_attachments/' + filename
+                
+                puts "Saving one new uploaded homework attachment"
+                puts address
 
-            homework.attachment_address = address
+                homework.attachment_address = address
+            end
         end
 
         if homework.save
