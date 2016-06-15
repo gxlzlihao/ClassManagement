@@ -128,45 +128,34 @@ $(document).ready(function(){
         var _course_id = $('a#now_course_info').text().split(':')[0];
         var _course_name = $('a#now_course_info').text().split(':')[1];
 
-        $('label#homework_course_id').text( _course_id );
-        $('label#homework_course_name').text( _course_name );
+        $('label#label_homework_course_id').text( _course_id );
+        $('label#label_homework_course_name').text( _course_name );
     });
 
     $('button#submit_create_homework').click(function(){
 
-        var _course_id = $('label#homework_course_id').text();
-        var _course_name = $('label#homework_course_name').text();
+        var _course_id = $('label#label_homework_course_id').text();
+        var _course_name = $('label#label_homework_course_name').text();
         var _homework_name = $('input#input_homework_name').val();
         var _homework_description = $('input#input_homework_description').val();
         var _deadline = $('input#deadline_datetime').val();
 
-        var _data = new Object();
-        _data.course_id = _course_id;
-        _data.course_name = _course_name;
-        _data.homework_name = _homework_name;
-        _data.homework_description = _homework_description;
-        _data.deadline = _deadline;
+        $('input#homework_course_id').val( _course_id );
+        $('input#homework_homework_name').val( _homework_name );
+        $('input#homework_homework_description').val( _homework_description );
+        $('input#homework_deadline_datetime').val( _deadline );
 
-        $.ajax({
-                type: 'POST',
-                url: '/index/create_homework' ,
-                data: _data ,
-                complete: function( obj ){ 
+        $('input#real_submit_create_homework').trigger('click');
 
-                    console.log( obj ); 
-                    var _answer = obj.responseText;
-                    var _result = JSON.parse( _answer ).result;
+    });
 
-                    if ( _result == 'ok' ) {
-                        alert( "creating succeeds" );
-                        window.location.reload();
-                    } else if ( _result == 'error' ) {
-                        alert( "creating fails" );
-                    }
+    $('a#choose_homework_attachment').click(function(){
+        $('input#homework_attachment_url').trigger('click');
+    });
 
-                } ,
-                dataType: 'json'
-        });
+    $('input#homework_attachment_url').change(function(){
+        var _file_name = $(this).val().split('\\')[ $(this).val().split('\\').length - 1 ];
+        $('a#choose_homework_attachment').children('label').text( _file_name );
     });
 
 });

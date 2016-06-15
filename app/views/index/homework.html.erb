@@ -222,8 +222,8 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">所属课程: </label>
                   <div class="col-sm-10">
-                    <label id="homework_course_id" class="control-label _hide">123</label>
-                    <label id="homework_course_name" class="control-label"> 课程一 </label>
+                    <label id="label_homework_course_id" class="control-label _hide">123</label>
+                    <label id="label_homework_course_name" class="control-label"> 课程一 </label>
                   </div>
                 </div>
                 <div class="form-group">
@@ -244,6 +244,12 @@
                     <input size="16" type="text" value="2012-06-15 14:45" class="form-control" readonly id="deadline_datetime">
                   </div>
                 </div>
+                <div class="form-group">
+                  <label for="inputHomeworkDescription" class="col-sm-2 control-label">作业附件: </label>
+                  <div class="col-sm-10">
+                    <a id="choose_homework_attachment" class="control-label"><label class="control-label"> （点击选择作业附件） </label></a>
+                  </div>
+                </div>
               </form>
            </div>
            <div class="modal-footer">
@@ -257,5 +263,16 @@
         </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
+
+<div id="hidden_form_data" class="form-group _hide">
+                    <%= form_for :homework, url: '/index/create_homework' do |f| %>
+                        <%= f.file_field :attachment_url %>
+                        <%= f.text_field :course_id %>
+                        <%= f.text_field :homework_name %>
+                        <%= f.text_field :homework_description %>
+                        <%= f.text_field :deadline_datetime %>
+                        <input id="real_submit_create_homework" type="submit" value="提交">
+                    <% end %>
+                </div>
 
     </div> <!-- /container -->

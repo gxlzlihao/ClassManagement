@@ -16,8 +16,8 @@ class ClientIndexController < ApplicationController
             course_id = all_courses.first.id
         end
         @course = Course.find( course_id )
-        @unfinished_homeworks = @course.homeworks.where( :status => false )
-        @finished_homeworks = @course.homeworks.where( :status => true )
+        @unfinished_homeworks = @course.homeworks.where( :status => false ).order('created_at DESC')
+        @finished_homeworks = @course.homeworks.where( :status => true ).order('created_at DESC')
 
         @documents = @course.documents
         class_unit_id = Student.find( session[:student_id] ).class_unit_id

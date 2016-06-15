@@ -252,11 +252,24 @@ class IndexController < ApplicationController
 
     def create_homework
 
+        puts "lihao is testing -- "
+
         homework = Homework.new
-        homework.name = params[:homework_name]
-        homework.description = params[:homework_description]
-        homework.course = Course.find( params[:course_id] )
-        homework.deadline = DateTime.parse( params[:deadline] )
+        homework.name = homework_params['homework_name']
+        homework.description = homework_params['homework_description']
+        homework.course = Course.find( homework_params['course_id'] )
+        homework.deadline = DateTime.parse( homework_params['deadline_datetime'] )
+        homework.status = false
+
+        unless request.get?
+            filename = uploadfile( homework_params['attachment_url'], 'homework_attachments' )           
+            address = '/public/upload/homework_attachments/' + filename
+            
+            puts "Saving one new uploaded homework attachment"
+            puts address
+
+            homework.attachment_address = address
+        end
 
         if homework.save
 
@@ -273,14 +286,15 @@ class IndexController < ApplicationController
                 end
             end
 
-            res = '{"result":"ok"}'
+            # res = '{"result":"ok"}'
         else
-            res = '{"result":"error"}'
+            # res = '{"result":"error"}'
         end
 
-        respond_to do |format|
-            format.json { render json: res, status: "200" }
-        end
+        # respond_to do |format|
+        #     format.json { render json: res, status: "200" }
+        # end
+        redirect_to '/index/homework'
 
     end
 
@@ -329,6 +343,11 @@ class IndexController < ApplicationController
     private 
         def document_params
             params.require(:document).permit( :document_url, :course_id )
+        end
+
+    private 
+        def homework_params
+            params.require(:homework).permit( :attachment_url, :course_id, :homework_name, :homework_description, :deadline_datetime )
         end
 
 end

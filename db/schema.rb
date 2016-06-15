@@ -114,13 +114,14 @@ ActiveRecord::Schema.define(version: 20160530002049) do
   add_index "homework_records", ["student_id"], name: "fk_rails_68dbdc2de3", using: :btree
 
   create_table "homeworks", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "description", limit: 255
-    t.boolean  "status",                  default: false
+    t.string   "name",               limit: 255
+    t.string   "description",        limit: 255
+    t.string   "attachment_address", limit: 255
+    t.boolean  "status",                         default: false
     t.datetime "deadline"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.integer  "course_id",   limit: 4
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+    t.integer  "course_id",          limit: 4
   end
 
   add_index "homeworks", ["course_id"], name: "index_homeworks_on_course_id", using: :btree
